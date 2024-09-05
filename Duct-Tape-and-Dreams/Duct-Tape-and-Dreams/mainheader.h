@@ -3,6 +3,11 @@
 
 // Before release, switch all SFML files from xxx-s-d.lib to xxx-s.lib
 
-#include <SFML/Graphics.hpp>
+#define SOL_ALL_SAFTIES_ON 1
+
+#include <sol/sol.hpp>
+#include <stdio.h>
+
+
 
 #endif
