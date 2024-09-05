@@ -101,6 +101,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)/../../lib/SFML-2.6.1/include;$(ProjectDir)/../../lib/sol2-3.3.0/include;$(ProjectDir)/../../lib/Lua54/include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
