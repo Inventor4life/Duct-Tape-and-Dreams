@@ -4,9 +4,8 @@ class settings
 {
 private:
 	string fileName;
-	ifstream input;
-	//for now just testing with settings each having 1's or 0's to show true/false on settings
-	std::map<string, int> settingsDict;
+	std::map<string, string> settingsDict;
+	std::map<string, string> settingsDictDef;
 
 public:
 
@@ -14,11 +13,27 @@ public:
 	settings() : fileName("settingsUser.txt") {};
 
 	//opens settings txt, reads current settings
-	int loadSettings(string fileName, std::map<string,int> settingsDict);
+	int loadSettings(string fileName, std::map<string, string> settingsDict);
 
 	//store settings into txt. something to keep in mind.
-	int storeSettings(string fileName, std::map<string, int> settingsDict);
+	int storeSettings(string fileName, std::map<string, string> settingsDict);
 
 	//create settings, calling both loadSettings and storeSettings
+	int createSettings(string settingName, string defaultValue);
+
+	//restoring default settings, essentially settingsDict = settingsDictDef
+	int restoreDefaultSettingsALL();
+	int restoreDefaultSetting(string setting);
+
+	//edit settings
+	int editSetting(string setting, string newValue);
+
+	//delete settings
+	int deleteSetting(string setting);
+
+	//get settings
+	string pGetSettingByName(string setting);
+	string pGetSettingByID(string setting);
+
 };
 

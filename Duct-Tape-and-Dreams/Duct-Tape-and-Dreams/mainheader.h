@@ -29,4 +29,11 @@ using std::ifstream;
 using std::ofstream;
 
 
+//aight, so ENUM's are still a fucky concept to me, but i THINK this is how it goes
+enum dataType {
+	STRING = 1,
+	INT = 2,
+	DOUBLE = 3,
+}; //i guess this works? who knows >.>
+
 #endif
