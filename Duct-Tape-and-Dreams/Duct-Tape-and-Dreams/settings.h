@@ -3,14 +3,13 @@
 class settings
 {
 private:
-	string fileName;
 	std::map<string, string> settingsDict;
 	std::map<string, string> settingsDictDef;
 
 public:
 
 	//default constructor
-	settings() : fileName("settingsUser.txt") {};
+	settings() {};
 
 	//opens settings txt, reads current settings
 	int loadSettings(string fileName, std::map<string, string> settingsDict);
@@ -35,5 +34,18 @@ public:
 	string pGetSettingByName(string setting);
 	string pGetSettingByID(string setting);
 
+	//get maps
+	std::map<string, string> getSettingMap()  {
+		return settingsDict;
+	}
+	std::map<string, string> getSettingMapDef()  {
+		return settingsDictDef;
+	}
+
+	//view maps
+	int printMap(std::map<string, string> mapS);
+
+	//settings test
+	int settingTest();
 };
 

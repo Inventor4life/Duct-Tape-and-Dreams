@@ -36,7 +36,7 @@ int settings::loadSettings(string fileName, std::map<string, string> settingsDic
 int settings::storeSettings(string fileName, std::map<string, string> settingsDict) {
 	ofstream output;
 	output.open(fileName, std::ios::out);
-	if (!output) cout << fileName << " failed to open.\n"; return -21;
+	if (!output) { cout << fileName << " failed to open.\n"; return -21; }
 	//pointer to first pair in map, iterate with that similairly to linked list
 	std::map<string, string>::iterator ptr = settingsDict.begin();
 	while (ptr != settingsDict.end()) {
@@ -92,7 +92,7 @@ int settings::restoreDefaultSetting(string setting) {
 int settings::editSetting(string setting, string newValue) {
 	//validateSetting(setting, newValue);
 	auto key = settingsDict.find(setting);
-	if (key != settingsDict.end()) {
+	if (key == settingsDict.end()) {
 		cout << "setting: " << setting << " does not exist.\n";
 		return -11;
 	}
@@ -131,3 +131,56 @@ string settings::pGetSettingByName(string setting) {
 string settings::pGetSettingByID(string setting) {
 	return "que pasa";
 }
+
+int settings::printMap(std::map<string, string> mapS) {
+	std::map<string, string>::iterator ptr = mapS.begin();
+	while (ptr != mapS.end()) {
+		cout << ptr->first << "=" << ptr->second << "\n";
+		++ptr;
+	}
+	return 1;
+}
+
+int settings::settingTest() {
+	//testing settings:
+	settings s;
+	std::map<string, string> mapS;
+	std::map<string, string> mapSD;
+
+	s.createSettings("userName", "none");
+	s.createSettings("fullscreen", "FALSE");
+	s.createSettings("diffuculty", "1");
+	s.createSettings("autoRun", "TRUE");
+
+	mapS = s.getSettingMap();
+	mapSD = s.getSettingMapDef();
+
+	s.printMap(mapS);
+	//s.printMap(mapSD);
+
+	s.editSetting("userName", "JoeShmoe");
+
+	mapS = s.getSettingMap();
+	mapSD = s.getSettingMapDef();
+
+	s.storeSettings("settingsUser.txt", mapS);
+	s.storeSettings("settingsDefault.txt", mapSD);
+
+	cout << "\n";
+	s.printMap(mapS);
+	//s.printMap(mapSD);
+
+	s.restoreDefaultSettingsALL();
+
+	mapS = s.getSettingMap();
+	mapSD = s.getSettingMapDef();
+	
+	cout << "\n";
+	s.printMap(mapS);
+	//s.printMap(mapSD);
+
+
+
+	return 1;
+}
+

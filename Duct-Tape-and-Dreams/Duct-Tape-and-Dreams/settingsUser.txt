@@ -1,0 +1,4 @@
+autoRun=TRUE
+diffuculty=1
+fullscreen=FALSE
+userName=JoeShmoe
