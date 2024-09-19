@@ -4,7 +4,13 @@
 // Before release, switch all SFML files from xxx-s-d.lib to xxx-s.lib
 
 #define SOL_ALL_SAFTIES_ON 1
-
+#define FILE_NOT_FOUND -20
+#define FILE_ERROR -21
+#define BAD_INPUT 10
+#define INVALID_VALUE -10
+#define SETTING_ALREADY_EXISTS -12
+#define FAILED_ALLOC -30
+#define SETTING_NOT_FOUND -11
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <sol/sol.hpp>

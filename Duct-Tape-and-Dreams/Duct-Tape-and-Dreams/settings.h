@@ -30,16 +30,18 @@ public:
 	//delete settings
 	int deleteSetting(string setting);
 
-	//get settings
-	string pGetSettingByName(string setting);
-	string pGetSettingByID(string setting);
-
 	//get maps
 	std::map<string, string> getSettingMap()  {
 		return settingsDict;
 	}
 	std::map<string, string> getSettingMapDef()  {
 		return settingsDictDef;
+	}
+
+	//get setting
+	std::string getSetting(string setting) {
+		//cant return the string value and setting not found at the same time, as far as I know but who knows
+		return settingsDict[setting];
 	}
 
 	//view maps
