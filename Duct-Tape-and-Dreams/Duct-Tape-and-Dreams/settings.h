@@ -49,5 +49,8 @@ public:
 
 	//settings test
 	int settingTest();
+
+	//verify setting
+	int verifySetting(string setting, string value);
 };
 

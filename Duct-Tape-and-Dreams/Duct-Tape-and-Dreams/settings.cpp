@@ -202,3 +202,52 @@ int settings::settingTest() {
 	return 1;
 }
 
+/*Function: verifySettings
+Description: checks to ensure function inputs are valid*/
+int settings::verifySetting(string setting, string value) {
+
+	//checks the inputted setting to see if it exists, then checks the inputted value to check if it is a valid setting option
+	//time to hard code in literally every setting we have WEEEEEEEE (;-;)
+	
+	//not sure if theres some fancy coding man way of doing this better, but for now it exists as such. More to be fine tuned latah
+
+	if (setting == "SprintMode") {
+		if (value == "Toggle" || value == "Hold") return 1;
+		else return 0;
+	}
+	if (setting == "SprintMode") {
+		if (value == "Toggle" || value == "Hold") return 1;
+		else return 0;
+	}
+	if (setting == "MoveUp" || "MoveDown" || "MoveLeft" || "MoveRight" || "Interact" || "Drop" || "Attach" || "Detach") {
+		if (isalpha(value[0]) && value.size() == 1) return 1;
+		else return 0;
+	}
+	if (setting == "ClimbMode") {
+		if (value == "Interact" || value == "HoldUp") return 1;
+		else return 0;
+	}
+	if (setting == "CameraShake" || setting == "Multiplayer") {
+		if (value == "TRUE" || value == "FALSE") return 1;
+		else return 0;
+	}
+	if (setting == "Diffuculty") {
+		if (value == "1" || value == "2" || value == "3" || value == "4") return 1;
+		else return 0;
+	}
+	if (setting == "MasterVolume" || setting == "SFXVolume" || setting == "MusicVolume" || setting == "DialogueVolume") {
+		if (stoi(value) >= 0 && stoi(value) <= 100) return 1;
+		else return 0;
+	}
+	if (setting == "Resolution") {
+		if (value == "1920x1080" || value == "2440x1440") return 1;//gonna need to make more of these later
+		else return 0;
+	}
+	if (setting == "FrameRate") {
+		if (value == "30" || value == "60" || value == "unlimited") return 1;
+		else return 0;
+	}
+	return 0;
+
+}
+

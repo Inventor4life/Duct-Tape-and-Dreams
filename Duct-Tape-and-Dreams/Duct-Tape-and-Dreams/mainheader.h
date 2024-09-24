@@ -33,6 +33,7 @@ using std::cin;
 using std::string;
 using std::ifstream;
 using std::ofstream;
+using std::array;
 
 
 //aight, so ENUM's are still a fucky concept to me, but i THINK this is how it goes
@@ -41,5 +42,7 @@ enum dataType {
 	INT = 2,
 	DOUBLE = 3,
 }; //i guess this works? who knows >.>
+
+
 
 #endif
