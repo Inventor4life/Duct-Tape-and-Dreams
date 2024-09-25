@@ -7,9 +7,15 @@ int main(int argc, char* argv[]) {
 	lua.open_libraries(sol::lib::base);
 	//lua.script("print('bark bark bark!')");
 
-	sf::RenderWindow window(sf::VideoMode(600, 400), "Hatsune Miku Dance Simulator");
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Hatsune Miku Dance Simulator");
 	sf::Event event;
 	
+	//making backround
+	sf::Texture backgroundTexture;
+	backgroundTexture.loadFromFile("backround.png");
+	sf::Sprite backgroundSprite;
+	backgroundSprite.setTexture(backgroundTexture);
+
 	Entity player;
 
 	//opens the actual window and keeps it on
@@ -27,7 +33,9 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		window.clear();
-		player.update();
+		//ah so this makes sense now! if you want to add something to your window, you gotta "draw" it on, then you can use it!
+		window.draw(backgroundSprite);
+		player.update(window);
 		player.drawTo(window);
 		window.display();
 	}
