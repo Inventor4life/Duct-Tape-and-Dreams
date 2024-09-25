@@ -7,7 +7,7 @@ class Entity
 {
 public:
 	Entity() {
-		if (!texture.loadFromFile("player.png")) {
+		if (!texture.loadFromFile("playerSCP.png")) {
 			std::cout << "no player png found";
 		}
 		entitySprite.setTexture(texture);
@@ -23,8 +23,8 @@ public:
 
 	void processEvents(sf::Keyboard::Key key, bool isPressed) {
 
-		//if (key == sf::Keyboard::W) {up = isPressed;}
-		//if (key == sf::Keyboard::S) {down = isPressed;}
+		if (key == sf::Keyboard::W) {up = isPressed;}
+		if (key == sf::Keyboard::S) {down = isPressed;}
 		if (key == sf::Keyboard::A) {
 			left = isPressed;
 		}
@@ -38,27 +38,36 @@ public:
 	}
 
 	void update(const sf::RenderWindow& window) {
-		float movement = 0.f;
-		float speed = 0.2f; // changes speed of sprite (ITS REALLY FAST FOR SOME REASON)
-		//sf::Vector2f movement(0.f, 0.f);
+		//float movement = 0.f;
+		float speed = 0.4f; // changes speed of sprite (ITS REALLY FAST FOR SOME REASON)
+		sf::Vector2f movement(0.f, 0.f);
 
-		//if (up) movement.y -= speed;
-		//if (down) movement.y += speed;
-		if (left) movement -= speed;
-		if (right) movement += speed;
+		if (up) movement.y -= speed;
+		if (down) movement.y += speed;
+		if (left) movement.x -= speed;
+		if (right) movement.x += speed;
 
+		//prevents moving out of bounds
 		sf::Vector2f position = entitySprite.getPosition();
-		if (position.x + movement < 0) {
-			movement = -position.x; //stops movement at 
+		if (position.x + movement.x < 0) {
+			movement.x = -position.x; //stops movement at 
 		}
-		else if (position.x + movement + entitySprite.getGlobalBounds().width > window.getSize().x) {
-			movement = window.getSize().x - (position.x + entitySprite.getGlobalBounds().width); // Prevent moving out on the right
+		else if (position.x + movement.x + entitySprite.getGlobalBounds().width > window.getSize().x) {
+			movement.x = window.getSize().x - (position.x + entitySprite.getGlobalBounds().width); // Prevent moving out on the right
+		}
+		else if (position.y + movement.y < 0) {
+			movement.y = -position.y;
+		}
+		else if (position.y + movement.y + entitySprite.getGlobalBounds().width > window.getSize().y) {
+			movement.y = window.getSize().y - (position.y + entitySprite.getGlobalBounds().width);
 		}
 
+
+		/* SHELVING JUMPING AT THE MOMENT ITS A BIT HARD >:(
 		if (inAir) {
 			//jumping and gravity! god help us
 			velocity += gravity; //increase velocity over time based on gravity
-			entitySprite.move(movement, velocity); //horrible variables names im noticing, will change later
+			entitySprite.move(movement); //horrible variables names im noticing, will change later
 
 			if (entitySprite.getPosition().y >= ground) {
 				entitySprite.setPosition(position.x, ground);
@@ -66,9 +75,10 @@ public:
 				inAir = false;
 			}
 		}
-		else {
-			entitySprite.move(movement, 0);
-		}
+		*/
+		
+		entitySprite.move(movement);
+		
 	}
 
 
@@ -80,8 +90,8 @@ private:
 
 	sf::Texture texture;  
 	sf::Sprite entitySprite;
-	//bool up = false;
-	//bool down = false;
+	bool up = false;
+	bool down = false;
 	bool left = false;
 	bool right = false;
 	bool inAir = false;
