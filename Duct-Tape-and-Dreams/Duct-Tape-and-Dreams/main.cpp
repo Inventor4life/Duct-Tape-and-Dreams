@@ -18,8 +18,12 @@ int main(int argc, char* argv[]) {
 
 	Entity player;
 
+	sf::Clock clock;
+
 	//opens the actual window and keeps it on
 	while (window.isOpen()) {
+		sf::Time deltaTime = clock.restart();
+
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				window.close();
@@ -35,7 +39,7 @@ int main(int argc, char* argv[]) {
 		window.clear();
 		//ah so this makes sense now! if you want to add something to your window, you gotta "draw" it on, then you can use it!
 		window.draw(backgroundSprite);
-		player.update(window);
+		player.update(window, deltaTime.asSeconds());
 		player.drawTo(window);
 		window.display();
 	}

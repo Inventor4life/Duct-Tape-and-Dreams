@@ -13,18 +13,19 @@ public:
 		entitySprite.setTexture(texture);
 		entitySprite.setPosition(200.f, 600.f);
 		jumpSpeed = -15.f;
-		gravity = 0.25f;
+		gravity = (981.0f*3);
 		inAir = false;
 		ground = 600.f;
 		velocity = 0.f;
+		jumpHeight = 100;
 	}
 
 
 
 	void processEvents(sf::Keyboard::Key key, bool isPressed) {
 
-		if (key == sf::Keyboard::W) {up = isPressed;}
-		if (key == sf::Keyboard::S) {down = isPressed;}
+		//if (key == sf::Keyboard::W) {up = isPressed;}
+		//if (key == sf::Keyboard::S) {down = isPressed;}
 		if (key == sf::Keyboard::A) {
 			left = isPressed;
 		}
@@ -33,52 +34,52 @@ public:
 		}
 		if (key == sf::Keyboard::Space && !inAir) {
 			inAir = true;
-			velocity = jumpSpeed;
+			//velocity jump formula is: sqrt(2.0f gravity * jumpHeight)
+			velocity = -sqrtf(2.0f * gravity * jumpHeight);
+
 		}
 	}
 
-	void update(const sf::RenderWindow& window) {
+	void update(const sf::RenderWindow& window, float deltaTime) {
 		//float movement = 0.f;
-		float speed = 0.4f; // changes speed of sprite (ITS REALLY FAST FOR SOME REASON)
+		float speed = 1000.f; // changes speed of sprite (ITS REALLY FAST FOR SOME REASON)
 		sf::Vector2f movement(0.f, 0.f);
+		//velocity = 0.f; 
 
-		if (up) movement.y -= speed;
-		if (down) movement.y += speed;
-		if (left) movement.x -= speed;
-		if (right) movement.x += speed;
+		//if (up) movement.y -= speed;
+		//if (down) movement.y += speed;
+		if (left) movement.x -= (speed * deltaTime);
+		if (right) movement.x += (speed * deltaTime);
 
-		//prevents moving out of bounds
+		/* SHELVING JUMPING AT THE MOMENT ITS A BIT HARD >:(
+		 AAAAND SHELVING IS BACK because we doing terraria now ;-; */
+
 		sf::Vector2f position = entitySprite.getPosition();
+		if (inAir) {
+			velocity += gravity * deltaTime;
+			movement.y += velocity * deltaTime;
+			//jumping and gravity! god help us
+			//velocity += gravity; //increase velocity over time based on gravity
+
+		//position = entitySprite.getPosition();
+			if (position.y + movement.y >= ground) {
+				entitySprite.setPosition(position.x, ground);
+				velocity = 0;
+				inAir = false;
+			}
+		}
+		//prevents moving out of bounds
+		position = entitySprite.getPosition();
 		if (position.x + movement.x < 0) {
 			movement.x = -position.x; //stops movement at 
 		}
 		else if (position.x + movement.x + entitySprite.getGlobalBounds().width > window.getSize().x) {
 			movement.x = window.getSize().x - (position.x + entitySprite.getGlobalBounds().width); // Prevent moving out on the right
 		}
-		else if (position.y + movement.y < 0) {
-			movement.y = -position.y;
-		}
-		else if (position.y + movement.y + entitySprite.getGlobalBounds().width > window.getSize().y) {
-			movement.y = window.getSize().y - (position.y + entitySprite.getGlobalBounds().width);
-		}
 
-
-		/* SHELVING JUMPING AT THE MOMENT ITS A BIT HARD >:(
-		if (inAir) {
-			//jumping and gravity! god help us
-			velocity += gravity; //increase velocity over time based on gravity
-			entitySprite.move(movement); //horrible variables names im noticing, will change later
-
-			if (entitySprite.getPosition().y >= ground) {
-				entitySprite.setPosition(position.x, ground);
-				velocity = 0; //has stopped moving, no longer jumping
-				inAir = false;
-			}
-		}
-		*/
+		entitySprite.move(movement.x, movement.y);
 		
-		entitySprite.move(movement);
-		
+		//entitySprite.move(movement.x, movement.y);
 	}
 
 
@@ -96,6 +97,7 @@ private:
 	bool right = false;
 	bool inAir = false;
 	//for jumping, we need a buncha fancy shit
+	float jumpHeight;
 	float jumpSpeed;
 	float gravity;
 	float velocity;
