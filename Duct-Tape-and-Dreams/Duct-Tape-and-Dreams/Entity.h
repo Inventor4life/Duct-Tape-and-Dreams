@@ -46,27 +46,27 @@ public:
 	}
 
 	//collision function so I dont gotta repeat this nonsense
-	sf::Vector2f collision(Object& object, float deltaTime,sf::Vector2f movement) {
+	int collision(Object& object, float deltaTime,sf::Vector2f movement) {
 
 		//Collision logic with OBJECTS, not window borders:
 		sf::FloatRect entityB = entitySprite.getGlobalBounds();
 		sf::FloatRect objectB = object.getGlobalBounds();
+		int colliding = 0;
+		//int onTop = 1;
 
 		if (entityB.intersects(objectB)) {
 			//if the entities current pos insersects the object:
 			//checking if entity is dropping ONTO object. jumping on it, or the ground!
 			//okay for somering FloatRect doesnt have right and bottom by default, so i gotta add those??
-
-
+			colliding = 1;
 			//collision from top
 			if (entityB.top + entityB.height <= objectB.top + (velocity * deltaTime)) {
 				// This means the player is above the object and falling down onto it
 				movement.y = 0; // stop downward movement
 				entitySprite.setPosition(entitySprite.getPosition().x, objectB.top - entityB.height);
 				inAir = false; // Player is no longer in the air
-
 			}
-
+		
 			//collision from bottom
 			else if (entityB.top <= objectB.top + objectB.height && entityB.left > objectB.left && (entityB.left + entityB.width) < (objectB.left + objectB.width)) {
 				movement.y = 0;
@@ -77,7 +77,7 @@ public:
 			// collision from left
 			else if (entityB.left < objectB.left && entityB.left + entityB.width >= objectB.left) {
 				movement.x = 0;
-				entitySprite.setPosition(objectB.left - 75, entitySprite.getPosition().y);
+				entitySprite.setPosition(objectB.left - 80, entitySprite.getPosition().y);
 			}
 
 			// collision from right
@@ -88,18 +88,25 @@ public:
 
 		}
 		//ensuring player character continues to fall if it walks off of the object, instead of getting stuck midair
+		//but, ONLY if the player is currently ontop of the object
 		if (entityB.top + entityB.height <= objectB.top + (velocity * deltaTime)) {
 			if (entityB.left + entityB.width < objectB.left || entityB.left >(objectB.left + objectB.width)) {
 				inAir = true;
 			}
 		}
-		return movement;
+		if(colliding){
+			entitySprite.move(movement.x, movement.y);
+			return 1;
+		}
+		if (!colliding) {
+			return 0;
+		}
 	}
 
 
 
 
-	void update(const sf::RenderWindow& window, float deltaTime, Object& object1) {
+	void update(const sf::RenderWindow& window, float deltaTime, Object& object1, Object& object2) {
 		//float movement = 0.f;
 		float speed = 1000.f; // changes speed of sprite (ITS REALLY FAST FOR SOME REASON)
 		sf::Vector2f movement(0.f, 0.f);
@@ -137,19 +144,19 @@ public:
 		}
 		
 		//so this should work for each object, for for somereason it DOESNT. >.>
+		// it DOES, just somewhat funky. not quite!
+		// 
+		int colliding = 0;
 		//object 1, aka hatsune miku
-		movement.x = collision(object1, deltaTime, movement).x;
-		movement.y = collision(object1, deltaTime, movement).y;
-		//object 2, aka platform 1\
-		movement.x = collision(object2, deltaTime, movement).x;\
-		movement.y = collision(object2, deltaTime, movement).y;
-
-		entitySprite.move(movement.x, movement.y);
-		
-		//entitySprite.move(movement.x, movement.y);
+		int c1 = collision(object1, deltaTime, movement);
+		//object 2, aka platform 1
+		int c2 = collision(object2, deltaTime, movement);
+		//if not colliding with anything, move as normal
+		if (c1 || c2) colliding = 1;
+		if (!colliding) {
+			entitySprite.move(movement.x, movement.y);
+		}
 	}
-
-
 	void drawTo(sf::RenderWindow &window) {
 		window.draw(entitySprite);
 	}

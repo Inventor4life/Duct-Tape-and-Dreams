@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
 
 	Entity player;
 	Object HatsuObject("Objects/HatsuObject.png", 800.0f, 500.f);
-	//Object p1("Objects/platform1.png", 1300.0f, 700.f);
+	Object p1("Objects/platform1.png", 1300.0f, 700.f);
 	sf::Clock clock;
 
 	//opens the actual window and keeps it on
@@ -40,8 +40,8 @@ int main(int argc, char* argv[]) {
 		window.clear();
 		window.draw(backgroundSprite);
 		HatsuObject.drawTo(window);
-		//p1.drawTo(window);
-		player.update(window, deltaTime.asSeconds(), HatsuObject);
+		p1.drawTo(window);
+		player.update(window, deltaTime.asSeconds(), HatsuObject, p1);
 		player.drawTo(window);
 		window.display();
 	}
