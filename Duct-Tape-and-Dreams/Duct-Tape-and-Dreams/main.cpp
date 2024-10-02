@@ -1,6 +1,6 @@
 #include "mainheader.h"
 #include "Entity.h"
-
+#include "Object.h"
 int main(int argc, char* argv[]) {
 
 	sol::state lua;
@@ -12,12 +12,13 @@ int main(int argc, char* argv[]) {
 	
 	//making backround
 	sf::Texture backgroundTexture;
-	backgroundTexture.loadFromFile("backround.png");
+	backgroundTexture.loadFromFile("Backrounds/backround.png");
 	sf::Sprite backgroundSprite;
 	backgroundSprite.setTexture(backgroundTexture);
 
 	Entity player;
-
+	Object HatsuObject("Objects/HatsuObject.png", 800.0f, 500.f);
+	//Object p1("Objects/platform1.png", 1300.0f, 700.f);
 	sf::Clock clock;
 
 	//opens the actual window and keeps it on
@@ -37,9 +38,10 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		window.clear();
-		//ah so this makes sense now! if you want to add something to your window, you gotta "draw" it on, then you can use it!
 		window.draw(backgroundSprite);
-		player.update(window, deltaTime.asSeconds());
+		HatsuObject.drawTo(window);
+		//p1.drawTo(window);
+		player.update(window, deltaTime.asSeconds(), HatsuObject);
 		player.drawTo(window);
 		window.display();
 	}

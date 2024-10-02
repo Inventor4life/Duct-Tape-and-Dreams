@@ -8,6 +8,7 @@
 #include <sol/sol.hpp>
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
-
+#include <iostream>
+#include <string.h>
 
 #endif
