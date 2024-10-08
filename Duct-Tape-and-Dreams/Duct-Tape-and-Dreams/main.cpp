@@ -16,11 +16,21 @@ int main(int argc, char* argv[]) {
 	sf::Sprite backgroundSprite;
 	backgroundSprite.setTexture(backgroundTexture);
 
+
+	//objects/entities
 	Entity player;
 	Object HatsuObject("Objects/HatsuObject.png", 800.0f, 500.f);
 	Object p1("Objects/platform1.png", 1300.0f, 700.f);
-	sf::Clock clock;
+	//alright so, new idea time to fix collison. Right now, its aggravating as all hell to add another object, let alone making it work correctly. Instead, what\
+	about an array of objects that my collision function loops through until it finds an object that it is colliding with, updates the movement vectors, and breaks the loop. That way,\
+	if we ARENT colliding with said object, theres no issue as it doesnt affect the movement vectors (the current issue btw) so it SHHOULD work. Id need to change it later for\
+	collision with multiple objects, but for now making it work with colliding with 1 at a time will do. Now, observe as I fix the issue ive been stumped on for a week:
+	Object objects[100] = { HatsuObject, p1};
 
+
+
+
+	sf::Clock clock;
 	//opens the actual window and keeps it on
 	while (window.isOpen()) {
 		sf::Time deltaTime = clock.restart();
@@ -41,7 +51,7 @@ int main(int argc, char* argv[]) {
 		window.draw(backgroundSprite);
 		HatsuObject.drawTo(window);
 		p1.drawTo(window);
-		player.update(window, deltaTime.asSeconds(), HatsuObject, p1);
+		player.update(window, deltaTime.asSeconds(), objects);
 		player.drawTo(window);
 		window.display();
 	}

@@ -52,7 +52,6 @@ public:
 		sf::FloatRect entityB = entitySprite.getGlobalBounds();
 		sf::FloatRect objectB = object.getGlobalBounds();
 		int colliding = 0;
-		//int onTop = 1;
 
 		if (entityB.intersects(objectB)) {
 			//if the entities current pos insersects the object:
@@ -85,17 +84,19 @@ public:
 				movement.x = 0;
 				entitySprite.setPosition((objectB.left + objectB.width), entitySprite.getPosition().y);
 			}
-
 		}
 		//ensuring player character continues to fall if it walks off of the object, instead of getting stuck midair
 		//but, ONLY if the player is currently ontop of the object
-		if (entityB.top + entityB.height <= objectB.top + (velocity * deltaTime)) {
-			if (entityB.left + entityB.width < objectB.left || entityB.left >(objectB.left + objectB.width)) {
-				inAir = true;
-			}
-		}
+			//okay idea here: 
+		
+
 		if(colliding){
 			entitySprite.move(movement.x, movement.y);
+			if ((entityB.left + entityB.width) < objectB.left || entityB.left > (objectB.left + objectB.width)) { 
+				//OKAY SO SOMETHING IS WRONG WITH THIS EQUATION SPECIFICALLY
+				printf("inAir\n");
+				inAir = true;
+			}
 			return 1;
 		}
 		if (!colliding) {
@@ -106,7 +107,7 @@ public:
 
 
 
-	void update(const sf::RenderWindow& window, float deltaTime, Object& object1, Object& object2) {
+	void update(const sf::RenderWindow& window, float deltaTime, Object objects[100]) {
 		//float movement = 0.f;
 		float speed = 1000.f; // changes speed of sprite (ITS REALLY FAST FOR SOME REASON)
 		sf::Vector2f movement(0.f, 0.f);
@@ -119,21 +120,19 @@ public:
 
 		/* SHELVING JUMPING AT THE MOMENT ITS A BIT HARD >:(
 		 AAAAND SHELVING IS BACK because we doing terraria now ;-; */
-
 		sf::Vector2f position = entitySprite.getPosition();
 		if (inAir) {
+			printf("inAir\n");
 			velocity += gravity * deltaTime;
 			movement.y += velocity * deltaTime;
 			//jumping and gravity! god help us
-			//velocity += gravity; //increase velocity over time based on gravity
-
-		//position = entitySprite.getPosition();
 			if (position.y + movement.y >= ground) {
 				entitySprite.setPosition(position.x, ground);
 				velocity = 0;
 				inAir = false;
 			}
 		}
+		else if(!inAir) { system("cls"); }
 		//prevents moving out of bounds
 		position = entitySprite.getPosition();
 		if (position.x + movement.x < 0) {
@@ -143,20 +142,30 @@ public:
 			movement.x = window.getSize().x - (position.x + entitySprite.getGlobalBounds().width); // Prevent moving out on the right
 		}
 		
-		//so this should work for each object, for for somereason it DOESNT. >.>
-		// it DOES, just somewhat funky. not quite!
-		// 
+
+		//collision logic
 		int colliding = 0;
-		//object 1, aka hatsune miku
-		int c1 = collision(object1, deltaTime, movement);
-		//object 2, aka platform 1
-		int c2 = collision(object2, deltaTime, movement);
-		//if not colliding with anything, move as normal
-		if (c1 || c2) colliding = 1;
+		sf::FloatRect entityB = entitySprite.getGlobalBounds();
+		for (int i = 0; i < 100; i++) {
+			if (collision(objects[i], deltaTime, movement)) {
+				//loops until we intersect with an object. If we ARE intersecting, it does the movement math itself in the function. if not, we continue until the end of the list.\
+				if by the end of the list we havent collided with any objects, we exit the loop and do the movement math ourselves. otherwise, it goes until it finds a collision,\
+				then terminates the list. This should ensure we only ever check for the movement frames of ONE object, and will never have objects not currently being collided with affect\
+				the movement math, witch was the issue I was dealing with previously. 
+				colliding = 1;
+
+				sf::FloatRect objectB = objects[i].getGlobalBounds();
+				//printf("colliding\n");
+				break;
+			}	
+		}
+
+		//moves based on movement math we have performed above!
 		if (!colliding) {
 			entitySprite.move(movement.x, movement.y);
 		}
 	}
+
 	void drawTo(sf::RenderWindow &window) {
 		window.draw(entitySprite);
 	}

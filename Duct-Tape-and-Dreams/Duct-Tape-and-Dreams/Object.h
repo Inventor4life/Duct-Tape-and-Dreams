@@ -5,7 +5,9 @@
 class Object
 {
 public:
-
+	Object() {
+		//default so objects list will fill em with ZIP. NADA. NUTHIN.
+	}
 	Object(std::string png, float x, float y) {
 		if (!texture.loadFromFile(png)) {
 			std::cout << "no object png found";
