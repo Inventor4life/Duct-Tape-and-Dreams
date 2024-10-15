@@ -92,9 +92,10 @@ public:
 
 		if(colliding){
 			entitySprite.move(movement.x, movement.y);
-			if ((entityB.left + entityB.width) < objectB.left || entityB.left > (objectB.left + objectB.width)) { 
+			std::cout << "colliding ";
+			if (((entityB.left + entityB.width) < objectB.left) || (entityB.left > (objectB.left + objectB.width))) { 
 				//OKAY SO SOMETHING IS WRONG WITH THIS EQUATION SPECIFICALLY
-				printf("inAir\n");
+				std::cout << "inAir\n ";
 				inAir = true;
 			}
 			return 1;
@@ -132,7 +133,6 @@ public:
 				inAir = false;
 			}
 		}
-		else if(!inAir) { system("cls"); }
 		//prevents moving out of bounds
 		position = entitySprite.getPosition();
 		if (position.x + movement.x < 0) {
