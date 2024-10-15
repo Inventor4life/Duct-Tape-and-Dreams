@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
 	Entity player;
 	Object HatsuObject("Objects/HatsuObject.png", 800.0f, 500.f);
 	Object p1("Objects/platform1.png", 1300.0f, 700.f);
+
 	//alright so, new idea time to fix collison. Right now, its aggravating as all hell to add another object, let alone making it work correctly. Instead, what\
 	about an array of objects that my collision function loops through until it finds an object that it is colliding with, updates the movement vectors, and breaks the loop. That way,\
 	if we ARENT colliding with said object, theres no issue as it doesnt affect the movement vectors (the current issue btw) so it SHHOULD work. Id need to change it later for\

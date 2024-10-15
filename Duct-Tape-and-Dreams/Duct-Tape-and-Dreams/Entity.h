@@ -23,6 +23,7 @@ public:
 		inAir = false;
 		velocity = 0.f;
 		jumpHeight = 400;
+		wasColliding = 0;
 	}
 
 
@@ -93,11 +94,6 @@ public:
 		if(colliding){
 			entitySprite.move(movement.x, movement.y);
 			std::cout << "colliding ";
-			if (((entityB.left + entityB.width) < objectB.left) || (entityB.left > (objectB.left + objectB.width))) { 
-				//OKAY SO SOMETHING IS WRONG WITH THIS EQUATION SPECIFICALLY
-				std::cout << "inAir\n ";
-				inAir = true;
-			}
 			return 1;
 		}
 		if (!colliding) {
@@ -142,6 +138,7 @@ public:
 			movement.x = window.getSize().x - (position.x + entitySprite.getGlobalBounds().width); // Prevent moving out on the right
 		}
 		
+		sf::FloatRect objectB;
 
 		//collision logic
 		int colliding = 0;
@@ -153,8 +150,8 @@ public:
 				then terminates the list. This should ensure we only ever check for the movement frames of ONE object, and will never have objects not currently being collided with affect\
 				the movement math, witch was the issue I was dealing with previously. 
 				colliding = 1;
-
-				sf::FloatRect objectB = objects[i].getGlobalBounds();
+				wasColliding = 1;
+				objectB = objects[i].getGlobalBounds();
 				//printf("colliding\n");
 				break;
 			}	
@@ -162,6 +159,15 @@ public:
 
 		//moves based on movement math we have performed above!
 		if (!colliding) {
+			if (wasColliding) {
+				std::cout << "wasColliding";
+				if (((entityB.left + entityB.width) < objectB.left) || (entityB.left > (objectB.left + objectB.width))) {
+					//OKAY SO SOMETHING IS WRONG WITH THIS EQUATION SPECIFICALLY
+					std::cout << "inAir\n ";
+					//inAir = true;
+					wasColliding = 0;
+				}
+			}
 			entitySprite.move(movement.x, movement.y);
 		}
 	}
@@ -185,6 +191,7 @@ private:
 	float gravity;
 	float velocity;
 	float ground;
+	int wasColliding;
 
 };
 
