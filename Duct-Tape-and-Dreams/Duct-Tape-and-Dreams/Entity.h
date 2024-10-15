@@ -24,12 +24,13 @@ public:
 		velocity = 0.f;
 		jumpHeight = 400;
 		wasColliding = 0;
+		frame = 0;
 	}
 
 
 
 	void processEvents(sf::Keyboard::Key key, bool isPressed) {
-
+		//std::cout << "frame: " << frame;
 		//if (key == sf::Keyboard::W) {up = isPressed;}
 		//if (key == sf::Keyboard::S) {down = isPressed;}
 		if (key == sf::Keyboard::A) {
@@ -42,9 +43,13 @@ public:
 			inAir = true;
 			//velocity jump formula is: sqrt(2.0f gravity * jumpHeight)
 			velocity = -sqrtf(2.0f * gravity * jumpHeight);
-
 		}
+		if (key == sf::Keyboard::E) {
+			system("pause");
+		}
+		//frame++;
 	}
+
 
 	//collision function so I dont gotta repeat this nonsense
 	int collision(Object& object, float deltaTime,sf::Vector2f movement) {
@@ -93,7 +98,7 @@ public:
 
 		if(colliding){
 			entitySprite.move(movement.x, movement.y);
-			std::cout << "colliding ";
+			std::cout << "colliding\n";
 			return 1;
 		}
 		if (!colliding) {
@@ -138,7 +143,6 @@ public:
 			movement.x = window.getSize().x - (position.x + entitySprite.getGlobalBounds().width); // Prevent moving out on the right
 		}
 		
-		sf::FloatRect objectB;
 
 		//collision logic
 		int colliding = 0;
@@ -160,11 +164,12 @@ public:
 		//moves based on movement math we have performed above!
 		if (!colliding) {
 			if (wasColliding) {
-				std::cout << "wasColliding";
-				if (((entityB.left + entityB.width) < objectB.left) || (entityB.left > (objectB.left + objectB.width))) {
+				std::cout << "wasColliding: ";
+				std::cout << "entitybounds=[" << entityB.left + entityB.width << "," << entityB.left << "], objectbounds=[" << objectB.left + objectB.width << "," << objectB.left << "]\n";
+				if (entityB.top + entityB.height <= objectB.top && (entityB.left + entityB.width < objectB.left || entityB.left > objectB.left + objectB.width)) {
 					//OKAY SO SOMETHING IS WRONG WITH THIS EQUATION SPECIFICALLY
 					std::cout << "inAir\n ";
-					//inAir = true;
+					inAir = true;
 					wasColliding = 0;
 				}
 			}
@@ -180,6 +185,7 @@ private:
 
 	sf::Texture texture;  
 	sf::Sprite entitySprite;
+	sf::FloatRect objectB;
 	bool up = false;
 	bool down = false;
 	bool left = false;
@@ -192,6 +198,6 @@ private:
 	float velocity;
 	float ground;
 	int wasColliding;
-
+	int frame;
 };
 
