@@ -7,5 +7,7 @@ int main(int argc, char* argv[]) {
 
 	lua.script("print('bark bark bark!')");
 
+	lua.script("source.lua");
+
 	return 0;// end return 0;
 }
