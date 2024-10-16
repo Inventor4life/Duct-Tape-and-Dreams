@@ -28,7 +28,6 @@ public:
 	}
 
 
-
 	void processEvents(sf::Keyboard::Key key, bool isPressed) {
 		//std::cout << "frame: " << frame;
 		//if (key == sf::Keyboard::W) {up = isPressed;}
@@ -98,7 +97,7 @@ public:
 
 		if(colliding){
 			entitySprite.move(movement.x, movement.y);
-			std::cout << "colliding\n";
+			//std::cout << "colliding\n";
 			return 1;
 		}
 		if (!colliding) {
@@ -124,7 +123,7 @@ public:
 		 AAAAND SHELVING IS BACK because we doing terraria now ;-; */
 		sf::Vector2f position = entitySprite.getPosition();
 		if (inAir) {
-			printf("inAir\n");
+			//printf("inAir\n");
 			velocity += gravity * deltaTime;
 			movement.y += velocity * deltaTime;
 			//jumping and gravity! god help us
@@ -164,11 +163,11 @@ public:
 		//moves based on movement math we have performed above!
 		if (!colliding) {
 			if (wasColliding) {
-				std::cout << "wasColliding: ";
-				std::cout << "entitybounds=[" << entityB.left + entityB.width << "," << entityB.left << "], objectbounds=[" << objectB.left + objectB.width << "," << objectB.left << "]\n";
+				//std::cout << "wasColliding: ";
+				//std::cout << "entitybounds=[" << entityB.left + entityB.width << "," << entityB.left << "], objectbounds=[" << objectB.left + objectB.width << "," << objectB.left << "]\n";
 				if (entityB.top + entityB.height <= objectB.top && (entityB.left + entityB.width < objectB.left || entityB.left > objectB.left + objectB.width)) {
 					//OKAY SO SOMETHING IS WRONG WITH THIS EQUATION SPECIFICALLY
-					std::cout << "inAir\n ";
+					//std::cout << "inAir\n ";
 					inAir = true;
 					wasColliding = 0;
 				}
@@ -199,5 +198,7 @@ private:
 	float ground;
 	int wasColliding;
 	int frame;
+
+	friend class Map;
 };
 

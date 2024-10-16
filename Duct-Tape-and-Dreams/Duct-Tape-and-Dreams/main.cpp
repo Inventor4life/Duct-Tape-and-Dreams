@@ -1,6 +1,7 @@
 #include "mainheader.h"
 #include "Entity.h"
 #include "Object.h"
+#include "Map.h"
 int main(int argc, char* argv[]) {
 
 	sol::state lua;
@@ -27,7 +28,7 @@ int main(int argc, char* argv[]) {
 	if we ARENT colliding with said object, theres no issue as it doesnt affect the movement vectors (the current issue btw) so it SHHOULD work. Id need to change it later for\
 	collision with multiple objects, but for now making it work with colliding with 1 at a time will do. Now, observe as I fix the issue ive been stumped on for a week:
 	Object objects[100] = { HatsuObject, p1};
-
+	
 
 
 
