@@ -10,5 +10,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string.h>
+#include <lua.h>
+#include <lualib.h>
+#include <lauxlib.h>
 
 #endif
