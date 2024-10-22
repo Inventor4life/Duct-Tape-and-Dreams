@@ -80,15 +80,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../../lib/SFML-2.6.1/include;$(ProjectDir)/../../lib/sol2-3.3.0/include;$(ProjectDir)/../../lib/Lua54/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../../lib/SFML-2.6.1/include;$(ProjectDir)/../../lib/sol2-3.3.0/include;$(ProjectDir)/../../lib/luajit2.0/include;$(ProjectDir)/../../lib/Lua51/include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-window-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-network-d.lib;lua54.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)/../../lib/SFML-2.6.1/lib;$(ProjectDir)/../../lib/Lua54/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-window-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-network-d.lib;lua51.lib;luajit.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)/../../lib/SFML-2.6.1/lib;$(ProjectDir)/../../lib/Lua51/;$(ProjectDir)/../../lib/luajit2.0/</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -99,7 +99,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../../lib/SFML-2.6.1/include;$(ProjectDir)/../../lib/sol2-3.3.0/include;$(ProjectDir)/../../lib/Lua54/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../../lib/SFML-2.6.1/include;$(ProjectDir)/../../lib/sol2-3.3.0/include;$(ProjectDir)/../../lib/luajit2.0/include;$(ProjectDir)/../../lib/Lua51/include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -108,8 +108,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies); sfml-window.lib;sfml-graphics.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;lua54.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)/../../lib/SFML-2.6.1/lib;$(ProjectDir)/../../lib/Lua54/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);sfml-window.lib;sfml-graphics.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;lua51.lib;luajit.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)/../../lib/SFML-2.6.1/lib;$(ProjectDir)/../../lib/Lua51/;$(ProjectDir)/../../lib/luajit2.0/</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
