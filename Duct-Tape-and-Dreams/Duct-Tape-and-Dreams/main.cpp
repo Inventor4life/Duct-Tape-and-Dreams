@@ -3,10 +3,10 @@
 int main(int argc, char* argv[]) {
 
 	sol::state lua;
-	lua.open_libraries(sol::lib::base);
+	lua.open_libraries(sol::lib::base, sol::lib::jit);
 
 	//lua.script("print(_VERSION)");
-	lua.script("if type(jit) == 'table' then print(jit.version) end");
+	lua.script("print(\"Yeet!\") print(jit.version)");
 
 	//lua.script("source.lua");
 
