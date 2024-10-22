@@ -4,10 +4,11 @@
 // Before release, switch all SFML files from xxx-s-d.lib to xxx-s.lib
 
 #define SOL_ALL_SAFTIES_ON 1
+//#define SOL_LUAJIT 1
 
 #include <sol/sol.hpp>
-#include <stdio.h>
 
-
+#include <iostream>
+#include <string.h>
 
 #endif
