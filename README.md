@@ -4,4 +4,10 @@
 
 This is the [currently private] repository for a game-based final project.
 
-Duct Tape and Dreams is a 2d survival game where space ships fall apart and everything (everything) is a hammer...
+Duct Tape and Dreams is a 2d survival game where space ships fall apart and anything is a hammer...
+
+Group Members:
+Davidt Acosta - [Github] (https://github.com/davidacleon)
+Zach Baker    - [Github] (https://github.com/FloatingToa5t)
+Ethan Goode   - [Github] (https://github.com/Inventor4life)
+Adam Ward     - [Github] (https://github.com/Bioticcc)
