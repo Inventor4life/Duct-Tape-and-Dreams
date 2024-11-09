@@ -20,15 +20,27 @@ int main(int argc, char* argv[]) {
 	spawnLocation.x = 200.0f;
 	spawnLocation.y = P.getGround();
 	string path = "player.png";
-	Entity player(path, spawnLocation, -15, 400);
+	Entity player(path, spawnLocation, -15, 400, "player");
 	
 	sf::Clock clock;
 	while (window.isOpen()) {
 		sf::Time deltaTime = clock.restart();
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+			if (event.type == sf::Event::KeyPressed) {
+				player.processEvents(event.key.code, true);
+
+			}
+			if (event.type == sf::Event::KeyReleased) {
+				player.processEvents(event.key.code, false);
+			}
+		}
 		window.clear();
+		player.update(window, deltaTime.asSeconds());
 		player.drawTo(window);
 		window.display();
-
 	}
 
 

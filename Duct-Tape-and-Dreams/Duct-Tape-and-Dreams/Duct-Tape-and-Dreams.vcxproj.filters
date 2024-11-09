@@ -39,5 +39,6 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="test.lua" />
+    <None Include="Entity.Lua" />
   </ItemGroup>
 </Project>

@@ -18,8 +18,8 @@ public:
 	void setVelocity(float n) { velocity = n; }
 
 private:
-	double ground;
-	double gravity;
+	float ground;
+	float gravity;
 	float velocity;
 };
 
