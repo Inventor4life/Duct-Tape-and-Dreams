@@ -6,14 +6,12 @@ class Map
 public:
 
 	Map() {
-
+		
 	}
-
-
-
 
 private:
 
 	sf::Sprite tiles[10];
+
 };
 

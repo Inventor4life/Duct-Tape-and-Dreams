@@ -2,6 +2,11 @@
 #include "Entity.h"
 #include "Object.h"
 #include "Map.h"
+#include "OnScreenText.h"
+//
+//void increaseGrav(std::vector<Entity>& entityVec);
+//void decreaseGrav(std::vector<Entity>& entityVec);
+
 int main(int argc, char* argv[]) {
 
 	sol::state lua;
@@ -29,8 +34,8 @@ int main(int argc, char* argv[]) {
 	collision with multiple objects, but for now making it work with colliding with 1 at a time will do. Now, observe as I fix the issue ive been stumped on for a week:
 	Object objects[100] = { HatsuObject, p1};
 	
-
-
+	//ENTITY VECTOR
+	std::vector<Entity> loadedEntites;
 
 	sf::Clock clock;
 	//opens the actual window and keeps it on
@@ -48,6 +53,18 @@ int main(int argc, char* argv[]) {
 			if (event.type == sf::Event::KeyReleased) {  
 				player.processEvents(event.key.code, false);
 			}
+			
+			// MESS WITH GRAVITY
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+				system("cls");
+				player.gravWeaker();
+				std::cout << "Gravity: " << player.getGrav() << std::endl << "Jump Height: " << player.getJumpHeight();
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+				system("cls");
+				player.gravStronger();
+				std::cout << "Gravity: " << player.getGrav() << std::endl << "Jump Height: " << player.getJumpHeight();
+			}
 		}
 		window.clear();
 		window.draw(backgroundSprite);
@@ -63,3 +80,12 @@ int main(int argc, char* argv[]) {
 
 	return 0;// end return 0;
 }
+//
+//void increaseGrav(std::vector<Entity>& entityVec) {
+//	for (int i = 0; entityVec[i]; i++) {
+//		entityVec[i];
+//	}
+//}
+//void decreaseGrav(std::vector<Entity>& entityVec) {
+//
+//}

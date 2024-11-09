@@ -19,19 +19,47 @@ public:
 		ground = 700.f;
 		entitySprite.setPosition(200.f, ground);
 		jumpSpeed = -15.f;
-		gravity = (981.0f*3);
+		gravity = (981.0f * 3);
 		inAir = false;
 		velocity = 0.f;
 		jumpHeight = 400;
 		wasColliding = 0;
 		frame = 0;
+
 	}
 
+	float getGrav() const {
+		return this->gravity;
+	}
+	void setGrav(float newGrav) {
+		this->gravity = newGrav;
+	}
+	void gravWeaker() {
+		this->gravity -= 50;
+		this->jumpHeight = 400 * (1 - (gravity - (981.0f * 3)) / (981.0f * 3));
+		if (gravity < 0) {
+			this->gravity = 0;
+		}
+	}
+	void gravStronger() {
+		this->jumpHeight = 400 * (1 - (gravity - (981.0f * 3)) / (981.0f * 3));
+		if (jumpHeight < 0) {
+			this->jumpHeight = 0;
+		}
+		else {
+			this->gravity += 50;
+		}
+	}
+	float getJumpHeight() const {
+		return this->jumpHeight;
+	}
 
 	void processEvents(sf::Keyboard::Key key, bool isPressed) {
 		//std::cout << "frame: " << frame;
 		//if (key == sf::Keyboard::W) {up = isPressed;}
 		//if (key == sf::Keyboard::S) {down = isPressed;}
+		
+
 		if (key == sf::Keyboard::A) {
 			left = isPressed;
 		}

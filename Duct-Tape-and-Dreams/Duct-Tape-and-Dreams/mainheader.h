@@ -10,5 +10,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string.h>
+#include <math.h>
 
 #endif
