@@ -1,4 +1,6 @@
 #include "mainheader.h"
+#include "Entity.h";
+#include "Physics.h"
 
 int main(int argc, char* argv[]) {
 
@@ -9,6 +11,14 @@ int main(int argc, char* argv[]) {
 	lua.script("print(\"Yeet!\") print(jit.version)");
 
 	//lua.script("source.lua");
+
+
+
+
+
+
+
+
 
 	return 0;// end return 0;
 }
