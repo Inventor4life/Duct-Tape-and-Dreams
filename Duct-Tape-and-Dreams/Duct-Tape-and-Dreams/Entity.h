@@ -17,6 +17,10 @@ public:
 		frame = 0;
 	}
 
+	void drawTo(sf::RenderWindow& window) {
+		window.draw(entitySprite);
+	}
+
 public:
 
 	bool up = false;
