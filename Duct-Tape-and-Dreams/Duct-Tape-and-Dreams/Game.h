@@ -28,7 +28,8 @@ public:
 			std::cerr << "Failed to load background texture\n";
 		}
 		background.setTexture(backgroundT);
-		player.spawnSprite(200, 700);
+		player.makeSprite(playerFileLoc);
+		player.spawnSprite(200, 600);
 	}
 
 	void runGame() {
