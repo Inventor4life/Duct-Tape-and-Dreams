@@ -32,6 +32,18 @@ public:
 		player.spawnSprite(200, 600);
 	}
 
+	/* CONTROLLER THING */
+	void controller(sf::Keyboard::Key input) {
+		//initializing default controllers:
+		Event jump("jump");
+		jump.addEventFunc();
+	}
+
+
+
+
+
+
 	void runGame() {
 		while (window.isOpen()) {
 			deltaTime = clock.restart();
