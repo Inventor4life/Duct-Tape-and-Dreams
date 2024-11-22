@@ -6,19 +6,20 @@ class Event
 private:
 	string EventName;
 
-	using eventFunc = Event* (*)();
-	std::vector<eventFunc> eventFuncs;
+	//using eventFunc = int (*)();
+	std::function<int()> eventFunc;
+	std::vector <std::function<int()>> eventFuncs;
 
 public:
 	Event(string str) : EventName(str) {}
 
-	void addEventFunc(eventFunc funcPtr) {
+	void addEventFunc(std::function<int()> funcPtr) {
 		eventFuncs.push_back(funcPtr);
 	}
 
 	void trigger() {
-		for (eventFunc funcPtr: eventFuncs) {
-			Event* event = funcPtr();
+		for (std::function<int()> funcPtr: eventFuncs) {
+			int event = funcPtr();
 		}
 	}
 

@@ -39,7 +39,7 @@ public:
 	void initializer() {
 		//initializing default controllers:
 		Event jump("jump");
-		jump.addEventFunc();
+		jump.addEventFunc(jumpMath());
 	}
 
 	//CONTROLLER
