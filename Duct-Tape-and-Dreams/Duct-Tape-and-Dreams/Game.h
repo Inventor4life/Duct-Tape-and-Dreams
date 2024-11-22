@@ -21,6 +21,8 @@ private:
 	sf::Clock clock;
 	sf::Time deltaTime;
 
+	std::vector<Event> events{};
+
 public:
 
 	Game() : resX(1920), resY(1080), window(sf::VideoMode(resX, resY), windowName) {
@@ -32,11 +34,17 @@ public:
 		player.spawnSprite(200, 600);
 	}
 
-	/* CONTROLLER THING */
-	void controller(sf::Keyboard::Key input) {
+
+	//INITIALIZER
+	void initializer() {
 		//initializing default controllers:
 		Event jump("jump");
 		jump.addEventFunc();
+	}
+
+	//CONTROLLER
+	void controller(sf::Keyboard::Key input) {
+		jump.trigger();
 	}
 
 
