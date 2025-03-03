@@ -5,7 +5,6 @@ project(DuctTapeandDreams LANGUAGES CXX)
 ####              ####
 ## PROJECT SETTINGS ##
 
-####              ####
 # END PROJECT SETTINGS
 ######################
 
@@ -30,6 +29,7 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT m
 #
 ####### END PROJECT RULES #######
 
+
 ##############################################################
 # Include Required Packages:
 #  := (NAME) [VERSION]  [:: Description (why do we use this package?)]
@@ -40,3 +40,31 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT m
 #  - box2d               :: Physics Engine - Required because... Physics?
 #  - FMOD Studio         :: Audio Engine - Not Tested, maybe not even needed. Could be replaced easily
 ##############################################################
+
+#############
+#include SFML
+#Note: On linux systems, SFML doesn't auto-install dependencies. Consider using the included
+# LinuxDependencyInstaller.sh ## DependencyInstaller untested...
+message(STATUS "Checking for SFML 3.0 on local machine")
+find_package(SFML 3.0 COMPONENTS system window graphics audio)
+
+if(NOT SFML_FOUND)
+	message(STATUS "SFML not found, installing...")
+	if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+		message(STATUS "Running on Linux Host. Consider running the LinuxDependencyInstaller.sh script if this fails.")
+	endif()
+	include(FetchContent)
+	FetchContent_Declare(SFML
+		GIT_REPOSITORY https://github.com/SFML/SFML.git
+		GIT_TAG 3.0.0
+		GIT_SHALLOW ON
+		EXCLUDE_FROM_ALL
+		SYSTEM)
+	FetchContent_MakeAvailable(SFML)
+	target_link_libraries(main PRIVATE SFML::Graphics)
+else()
+	#not tested.
+	message(STATUS "SFML found. Linking...")
+	target_link_libraries(main PRIVATE sfml-graphics sfml-system sfml-window sfml-audio)
+endif()
+############# END SFML INSTALL
