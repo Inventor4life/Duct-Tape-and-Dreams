@@ -2,9 +2,9 @@
 
 [Documentation](https://docs.google.com/document/d/1MfGL81AGXvoAXpJSSHrIRQcmGpD3-zGf5BHsP8V3hJ4/edit?usp=sharing)
 
-This is the [currently private] repository for a game-based final project.
+This is the [currently private] repository for a game-based resume project.
 
-Duct Tape and Dreams is a 2d survival game where space ships fall apart and anything is a hammer...
+Duct Tape and Dreams (DTAD) is a 2d survival game where space ships fall apart and anything is a hammer...
 
 ## Group Members:
 
