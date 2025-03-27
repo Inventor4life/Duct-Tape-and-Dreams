@@ -5,8 +5,8 @@ project(DuctTapeandDreams LANGUAGES CXX)
 ####              ####
 ## PROJECT SETTINGS ##
 
-set(SW_V 161) #SW_V: Steamworks Version
-set(SW_HASH_EXPECTED "ddca256529c5dd0fefa9f8afbb0ab15f") #Expected Steamworks Hash, used to verify that the correct sdk is downloaded.
+set(SW_V 162) #SW_V: Steamworks Version
+set(SW_HASH_EXPECTED "048fc455d1725da6e25e2ffe4597fd23") #Expected Steamworks Hash, used to verify that the correct sdk is downloaded.
 set(STEAM_APPID 3433930) #Duct Tape and Dreams App ID
 
 # END PROJECT SETTINGS
