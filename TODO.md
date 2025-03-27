@@ -2,5 +2,4 @@
 ## CMake
  - Test 'LinuxDependencyInstaller.sh' on a linux system
  - Test find_package sol2, where sol2 is already installed
- - Convert version numbers in code to environment variables
- 
+ - Test Mac and Linux installs of steamworks library
