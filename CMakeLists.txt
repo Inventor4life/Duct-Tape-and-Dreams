@@ -102,7 +102,6 @@ file(
 	INPUT "steamworks_sdk_${SW_V}.zip"
 	DESTINATION ${CMAKE_BINARY_DIR}/steamworks_sdk_${SW_V}
 	)
-file(REMOVE "steamworks_sdk_${SW_V}.zip") #TODO: Remove this. It is non-functional and would trigger another install.
 
 #include steamworks headers
 target_include_directories(main PUBLIC ${CMAKE_BINARY_DIR}/steamworks_sdk_${SW_V}/sdk/public/)
