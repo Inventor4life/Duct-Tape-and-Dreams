@@ -126,6 +126,13 @@ endif()
 file(WRITE ${CMAKE_BINARY_DIR}/steam_appid.txt "${STEAM_APPID}")
 ########## END STEAMWORKS INSTALL
 
+##########
+#include Lua
+# to install:
+#  - sol2
+#  - LuaJIT
+#  - LuaJIT-cmake (used to implement LuaJIT, since LuaJIT doesn't have a cmake script
+
 ## Install Sol2 v3.5.0 from https://github.com/ThePHD/sol2.git
 message(STATUS "Checking for sol2 on local machine...")
 find_package(sol2 3.5.0)
@@ -172,5 +179,31 @@ FetchContent_Declare(luajit
 FetchContent_MakeAvailable(luajit)
 target_link_libraries(main PRIVATE luajit::lib luajit::header)
 target_include_directories(main PRIVATE ${luajit_BINARY_DIR}) # Needed to #include luajit.h
+########## END LUA INSTALL
 
-#TODO: #include box2d
+##########
+#include box2d
+
+## Install box2d v3.0.0 from https://github.com/erincatto/box2d.git
+message(STATUS "Checking for box2d on local machine...")
+find_package(box2d 3.5.0)
+if(NOT box2d_FOUND)
+	message(STATUS "box2d not found, installing...")
+	include(FetchContent)
+	FetchContent_Declare(box2d
+		GIT_REPOSITORY https://github.com/erincatto/box2d.git
+		GIT_TAG v3.0.0
+		GIT_SHALLOW ON
+		EXCLUDE_FROM_ALL
+	)
+	FetchContent_MakeAvailable(box2d)
+	target_link_libraries(main PRIVATE box2d)
+	
+else()
+	#not tested.
+	message(STATUS "box2d found. Linking...")
+	target_link_libraries(main PRIVATE box2d)
+	
+endif()
+
+########## END BOX2D INSTALL
