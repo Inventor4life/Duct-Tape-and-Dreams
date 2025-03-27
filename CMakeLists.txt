@@ -5,12 +5,11 @@ project(DuctTapeandDreams LANGUAGES CXX)
 ##############################################################
 # Include Required Packages:
 #  := (NAME) [VERSION]  [:: Description (why do we use this package?)]
-#  - SFML 3.0.0            :: Game Graphics
-#  - Steamworks_SDK 1.62 :: Steam API, required to use Steam features
-#  - LuaJIT              :: Run Lua for mods. LuaJIT preffered over Lua for performance
-#  - Sol 2               :: Header Library for Lua, makes integrating Lua API easier
-#  - box2d               :: Physics Engine - Required because... Physics?
-#  - FMOD Studio         :: Audio Engine - Not Tested, maybe not even needed. Could be replaced easily
+#  - SFML            3.0.0  :: Game Graphics
+#  - Steamworks_SDK  1.62   :: Steam API, required to use Steam features
+#  - LuaJIT          2.1    :: Run Lua for mods. LuaJIT preffered over Lua for performance
+#  - Sol             3.5.0  :: Header Library for Lua, makes integrating Lua API easier
+#  - box2d           3.0.0  :: Physics Engine - Required because... Physics?
 ##############################################################
 
 ####              #### Make sure to update package versions above when changing versions below.
@@ -45,7 +44,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #Create Target
 add_executable(main src/main.cpp)
-target_compile_features(main PRIVATE cxx_std_17) #Use C++17
+target_compile_features(main PRIVATE cxx_std_17) #Use C++17. C++ standards after 17 have not been tested.
 
 #Sets main target as main project for Visual Studio
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT main)
