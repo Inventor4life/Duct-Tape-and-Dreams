@@ -50,7 +50,7 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT m
 #Note: On linux systems, SFML doesn't auto-install dependencies. Consider using the included
 # LinuxDependencyInstaller.sh ## DependencyInstaller untested...
 message(STATUS "Checking for SFML 3.0 on local machine")
-find_package(SFML 3.0 COMPONENTS system window graphics audio)
+find_package(SFML 3.0.0 COMPONENTS system window graphics audio)
 
 if(NOT SFML_FOUND)
 	message(STATUS "SFML not found, installing...")
@@ -102,7 +102,7 @@ file(
 	INPUT "steamworks_sdk_${SW_V}.zip"
 	DESTINATION ${CMAKE_BINARY_DIR}/steamworks_sdk_${SW_V}
 	)
-file(REMOVE "steamworks_sdk_${SW_V}.zip") 
+file(REMOVE "steamworks_sdk_${SW_V}.zip") #TODO: Remove this. It is non-functional and would trigger another install.
 
 #include steamworks headers
 target_include_directories(main PUBLIC ${CMAKE_BINARY_DIR}/steamworks_sdk_${SW_V}/sdk/public/)
@@ -127,8 +127,51 @@ endif()
 file(WRITE ${CMAKE_BINARY_DIR}/steam_appid.txt "${STEAM_APPID}")
 ########## END STEAMWORKS INSTALL
 
-#TODO: #include sol3
+## Install Sol2 v3.5.0 from https://github.com/ThePHD/sol2.git
+message(STATUS "Checking for sol2 on local machine...")
+find_package(sol2 3.5.0)
+if(NOT sol2_FOUND)
+	message(STATUS "sol2 not found, installing...")
+	include(FetchContent)
+	FetchContent_Declare(sol2
+		GIT_REPOSITORY https://github.com/ThePHD/sol2.git
+		GIT_TAG v3.5.0
+		GIT_SHALLOW ON
+		EXCLUDE_FROM_ALL
+	)
+	FetchContent_MakeAvailable(sol2)
+	target_link_libraries(main PRIVATE sol2)
+	
+else()
+	#not tested.
+	message(STATUS "sol2 found. Linking...")
+	target_link_libraries(main PRIVATE sol2)
+	
+endif()
 
-#TODO: #include LuaJIT
+#install LuaJIT from https://luajit.org/git/luajit.git
+message(STATUS "Installing luajit v2.1")
+include(FetchContent)
+FetchContent_Declare(LuaJITsource
+	GIT_REPOSITORY https://luajit.org/git/luajit.git
+	GIT_TAG v2.1
+	#GIT_SHALLOW ON luajit git server doesn't support GIT_SHALLOW
+	EXCLUDE_FROM_ALL
+	)
+FetchContent_MakeAvailable(LuaJITsource)
+
+#install luajit installer from https://github.com/zhaozg/luajit-cmake.git
+message(STATUS "Installing luajit installer...")
+set(LUAJIT_DIR ${luajitsource_SOURCE_DIR}) #Tells the luajit installer where to find luajit.
+set(CMAKE_POLICY_DEFAULT_CMP0077 NEW) #Needed to prevent option() from clearing LUAJIT_DIR env above
+include(FetchContent)
+FetchContent_Declare(luajit
+	GIT_REPOSITORY https://github.com/zhaozg/luajit-cmake.git
+	GIT_SHALLOW ON
+	EXCLUDE_FROM_ALL
+	)
+FetchContent_MakeAvailable(luajit)
+target_link_libraries(main PRIVATE luajit::lib luajit::header)
+target_include_directories(main PRIVATE ${luajit_BINARY_DIR}) # Needed to #include luajit.h
 
 #TODO: #include box2d
