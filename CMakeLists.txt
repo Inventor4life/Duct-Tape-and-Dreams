@@ -36,7 +36,7 @@ set(DTAD_STEAM_APPID 3433930) #Duct Tape and Dreams App ID
 
 #Disallow in-source builds
 if(NOT ${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR}/build)
-	message(FATAL_ERROR "In-source builds not allowed. Please create a build directory and run 'cmake ..' from there.")
+	message(FATAL_ERROR "Please build into the /build/ directory at project root.")
 endif()
 
 #Keep downloaded packages separate from main script
@@ -118,7 +118,7 @@ file(
 target_include_directories(main PUBLIC ${CMAKE_BINARY_DIR}/steamworks_sdk_${DTAD_SteamWorks_VERSION}/sdk/public/)
 
 #Find and link required libraries by platform
-if(CMAKE_SIZEOF_VOID_P EQUAL 4) #True if on 32-bit system
+if(CMAKE_SIZEOF_VOID_P NOTEQUAL 8) #True if not on 64-bit system
     message(FATAL_ERROR "This project is designed for 64-bit systems only.")
 endif()
 
