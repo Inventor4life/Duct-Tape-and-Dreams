@@ -118,7 +118,7 @@ file(
 target_include_directories(main PUBLIC ${CMAKE_BINARY_DIR}/steamworks_sdk_${DTAD_SteamWorks_VERSION}/sdk/public/)
 
 #Find and link required libraries by platform
-if(CMAKE_SIZEOF_VOID_P NOTEQUAL 8) #True if not on 64-bit system
+if(NOT (CMAKE_SIZEOF_VOID_P EQUAL 8)) #True if not on 64-bit system
     message(FATAL_ERROR "This project is designed for 64-bit systems only.")
 endif()
 
