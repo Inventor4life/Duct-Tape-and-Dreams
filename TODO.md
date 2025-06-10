@@ -6,5 +6,4 @@
  
 ## Other
  - Review dependency licenses for conflictions (including Steamworks platform license)
- - Research/document how to create release versions without source code
  - Research how to upload a game build to Steam
