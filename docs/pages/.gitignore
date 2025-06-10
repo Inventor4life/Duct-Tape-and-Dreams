@@ -1,0 +1,4 @@
+# Temporary .gitignore to track empty /pages/ directory. This may be changed later.
+# - I4L
+*
+!.gitignore

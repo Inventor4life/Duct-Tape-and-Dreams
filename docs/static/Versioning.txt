@@ -1,0 +1,66 @@
+This text file contains version information for all installed modules and the game itself.
+This file will change periodically, always refer to the most recent version when performing updates.
+This will be structured as:
+
+Module Name
+	Current Version
+	Update instructions/ Do Not Update reasoning.
+	
+If an external module's major release number is changed:
+	Have a team lead decide whether or not to update the module for the project.
+	Team lead:
+		View the changelog to see if any changes are relevant.
+		If the project module should be updated, run all tests in all files utilizing that module.
+		If the project module should not be updated, add 'Do Not Update' reasoning to the relevant module below.
+
+Duct Tape and Dreams (the game itself!)
+	0.1.0
+	Make sure all modules below are up to date.
+	Make sure documentation is consistent with new release.
+	Create a pre-release branch -- "{New version number}-prerelease" (i.e. "1.2.0-prerelease")
+	Change version number in {TODO: Find a way to store dtad version}
+	Run all tests and add last-minute bug fixes to the pre-release version, no more features should be added.
+	Contact a team lead once the new version is ready for release.
+	
+	Team lead:
+		Merge the pre-release branch from above into the "release" branch
+		Add a tag to the release branch with the new version
+		Create builds to release on steam (instructions on how to do this are TBD).
+		Update the version number above.
+		
+Steamworks
+	1.62
+	Update steam version in CMakeLists.txt in project root (line 26?)
+	Download a copy of the new steamworks_sdk.zip file and get the MD5 hash:
+		On Windows (in cmd): certutil -hashfile {Path_To_Steamworks_sdk.zip} MD5
+	Update the expected hash in CMakeLists.txt file in project root (line 27?)
+	Clear the /build/ directory at project root, rebuild the project, then compile it.
+	Update the version number above.
+	
+box2d
+	3.0.0
+	Update box2d version in CMakeLists.txt in project root (line 18?)
+	Clear the /build/ directory at project root, rebuild the project, then compile it.
+	Update the version number above.
+	
+Luajit
+	2.1
+	Update Luajit version in CMakeLists.txt in project root (line 20?)
+	Clear the /build/ directory at project root, rebuild the project, then compile it.
+	Update the version number above.
+	
+Sol
+	3.5.0
+	Update Sol version in CMakeLists.txt in project root (line 22?)
+	Clear the /build/ directory at project root, rebuild the project, then compile it.
+	Update the version number above.
+	
+SFML
+	3.0.0
+	Update SFML version in CMakeLists.txt in project root (line 24?)
+	In a new Linux VM, attempt to build/compile the project (test LinuxDependencyInstaller.sh)
+	Clear the /build/ directory at project root, rebuild the project, then compile it.
+	Update LinuxDependencyInstaller.sh in the project root to install the packages needed by the new version.
+	Replace 3.0 with the new version number in the link below.
+	https://www.sfml-dev.org/tutorials/3.0/getting-started/cmake/#customize-the-cmake-project-and-executable-names
+	Update the version number above.
