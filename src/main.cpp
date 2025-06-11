@@ -38,7 +38,8 @@ int main()
 	
 	// Verify SteamAPI installation
 	if(!SteamAPI_Init()) {
-	return -1;
+		std::cout << "SteamAPI_Init failed!\n";
+		//return -1;
 	}
 	SteamAPI_Shutdown();
 
