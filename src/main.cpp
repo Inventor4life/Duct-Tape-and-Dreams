@@ -12,6 +12,12 @@ int main()
 	auto window = sf::RenderWindow(sf::VideoMode({ 1920u, 1080u }), "CMake SFML Project");
 	window.setFramerateLimit(144);
 
+	
+    // Create a circle
+    sf::CircleShape circle(50.f); // Radius of 50
+    circle.setFillColor(sf::Color::Red);
+    circle.setPosition(sf::Vector2(200.f, 200.f)); // Center of the circle
+	
 	while (window.isOpen())
 	{
 		while (const std::optional event = window.pollEvent())
@@ -23,6 +29,9 @@ int main()
 		}
 
 		window.clear();
+		
+		window.draw(circle);
+		
 		window.display();
 	}
 	
