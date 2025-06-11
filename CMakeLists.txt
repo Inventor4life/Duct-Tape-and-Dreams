@@ -59,7 +59,6 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT m
 #############
 #include SFML
 #Note: On linux systems, SFML doesn't auto-install dependencies. Consider using the included
-# LinuxDependencyInstaller.sh ## TODO: Test this.
 message(STATUS "Checking for SFML ${DTAD_SFML_VERSION} on local machine")
 find_package(SFML ${DTAD_SFML_VERSION} COMPONENTS system window graphics audio)
 
@@ -131,7 +130,6 @@ elseif(APPLE)
 	#TODO: Test this.
 	target_link_libraries(main PUBLIC ${STEAM_LIBRARY_DIR}/osx/libsteam_api.dylib) #Untested
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-	#TODO: Test this.
 	target_link_libraries(main PUBLIC ${STEAM_LIBRARY_DIR}/linux64/libsteam_api.so) #Untested
 endif()
 
