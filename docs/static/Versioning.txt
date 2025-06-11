@@ -23,6 +23,7 @@ Duct Tape and Dreams (the game itself!)
 	Contact a team lead once the new version is ready for release.
 	
 	Team lead:
+		Update --CURRENT tag in /DevelopmentTracker.txt
 		Merge the pre-release branch from above into the "release" branch
 		Add a tag to the release branch with the new version
 		Create builds to release on steam (instructions on how to do this are TBD).

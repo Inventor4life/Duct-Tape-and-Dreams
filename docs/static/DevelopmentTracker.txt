@@ -1,0 +1,154 @@
+# '#' Denotes commments
+# This file contains a short plan for future DTAD releases, subject to change.
+# Format:
+#	{SemVer version number} *{(->) update name}
+#		*Planned feature
+#			*Description
+#		...
+#		...
+#		*Planned feature
+#	
+# (* denotes optional)		
+# End Format
+#
+# --CURRENT tag shows current version and when Development tracker was last updated.
+# <:: BackBurner ::> label shows features on hold (Not assigned a release version, may be cancelled.)
+
+0.1.0 -> Batteries not included --CURRENT
+	Automate source building with CMake
+	
+0.1.1
+	Add Development tracker
+	Add changelog
+	
+0.1.2
+	Publish docs to Github Pages
+	
+0.1.3
+	Establish testing procedure
+	Choose code style guide
+	Design game interfaces
+
+0.1.x 
+	Finalize testing procedures and game interface design
+
+0.2.0 -> First Steps
+	Prototype interfaces/modules:
+		Launch:
+			Controls how the game handles various launch options. May return launch options as settings (TBD in version 0.1.x)
+			
+		Settings:
+			CRUDs various user and game settings. Specifications TBD
+		
+		Serialized Data handler:
+			Abstracts reading/storing structured data files (e.g. JSON, INI, YAML, ...)
+			TODO: Come up with a simpler name for this.
+		
+		Logger:
+			Monitors and logs program flow to aid in debugging.
+			
+		Scripts:
+			Implement scripting interface for the 0.2.x features
+			
+0.2.x
+	Bugfix and improve on Launch and Settings modules.
+
+0.3.0 -> Chase it, (it's running!)
+	Prototype interfaces/modules:
+		Events:
+			Creates/manages an event system -- https://www.geeksforgeeks.org/event-driven-architecture-system-design
+		
+		Display:
+			Handles drawing basic images/shapes/text to screen
+			
+		Input:
+			Reads and normalizes user input, (including microphone?)
+	
+		Asset manager:
+			Indexes, Stores, and Loads various game resources.
+			May be removed after design in version 0.1.x
+			
+		Scripts:
+			Implement scripting interface for the 0.3.x features
+			
+0.3.x
+	Bugfix and improve on previous modules and interfaces
+	
+0.4.0 -> Some assembly required
+	Prototype interfaces/modules:
+		Graphics:
+			Implements higher-level graphics (Such as tiles, sprites, and animations).
+			Uses 0.3.x (Display, Asset Manager), 0.2.x (settings)
+			
+		Audio:
+			Handles audio playback.
+			Uses 0.3.x (Asset Manager)
+		
+		Physics:
+			Create and manage Physics objects with box2d.
+			Uses 0.3.x (Asset manager), 0.2.x (settings)
+			
+		Scripts:
+			Update scripting interface to include 0.4.x features
+			
+		Modding: 
+			Controls how the game handles User Generated Content
+			-Loader: Load scripts and images from local mods into asset manager
+			-Builder: Create new mods from source.
+			-Manager: Delete local mods.
+			Uses 0.3.x (Asset manager, Events), 0.2.x (settings)
+
+
+0.4.x
+	Bugfix and improve on previous modules and interfaces
+	
+0.5.0 -> {TBD}
+	Prototype interfaces/modules:
+		Scripts:
+			Update scripting interface to include 0.5.x features
+			
+		Entity:
+			Combine Physics and Graphics to have physics-enabled sprites.
+			Uses 0.4.x (Physics, Graphics)
+			
+		Modding: 
+			-Loader: Load (Audio, animations, physics info) from local mods into asset manager
+			Uses 0.4.x (Graphics, Audio, Physics), 0.3.x (Asset manager, Events), 0.2.x (settings)
+
+		Menus:
+			Combine Graphics and Scripts to make user-interactable menus that trigger events.
+		
+		Levels:
+			// TODO: Figure out levels vs. Mods. Are all levels mods?
+		
+0.6.0 -> Negligent Newton!
+	Prototype interfaces/modules:
+		Modding:
+			-Browser: Used to gather info on local mods (Not display them!)
+		
+		Core:
+			initialize services, browse levels/mods
+			
+0.7.0 -> {TBD}
+	Prototype interfaces/modules:
+		World:
+			Collection of mods, scripts, images, audio, and settings.
+			Runs scripts, simulates physics, contains event manager.
+			-Loader: Loads a local world.
+			-Builder: Create a new world from source
+			-Browser: Browse local worlds
+			-Manager: Delete local worlds
+			
+0.8.0 -> The internet (is your) oyster!
+	Prototype interfaces/modules:
+		Modding:
+			-Browser: Used to discover remote mods.
+			-Manager: Download public mods, publish new mods, and 
+			
+		Networking:
+			Handles how the game interacts with remote servers.
+			-Matchmaking: Joining/creating/syncing remote game sessions
+			-Friends: Add friends list functionality
+			-Messaging: Sending/receiving chat messages
+
+<:: BackBurner ::>
