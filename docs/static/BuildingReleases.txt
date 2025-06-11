@@ -1,0 +1,86 @@
+# denotes comments
+# This file describes how to build a release version of the game, separated by module requirements. When adding new modules or interfaces, add their release requirements to this file.
+#
+# Format (* denotes optional):
+# {Module Name} {*version}:
+#	Linux:
+#		{Release requirements for Linux}
+#
+#	Mac:
+#		{Release requirements for Mac}
+#
+#	Windows:
+#		{Release requirements for Windows}
+#
+#	*Notes:
+#		*{additional notes}
+#
+# Endformat
+
+To create a release version:
+ - Dedicate an empty folder to contain the release version. It will be referred to as /release in this file. Other directories are relative to the project root: /
+ - Rebuild and recompile the project using release config (cmake --config Release?) on the platform you wish to build for (TODO: find a way to cross-compile?).
+ - For every module below, follow the instructions for the platform you are currently building for.
+ - Once the release version has been created, run it on a fresh virtual machine of the platform the release was built for to verify that it works.
+
+Core: 
+	Linux:
+		TODO: write instructions
+		
+	Mac:
+		TODO: write instructions
+		
+	Windows:
+		Move main.exe (Located at /build/bin/Release for visual studio) to /release
+		
+
+Steamworks:
+	Linux:
+		TODO: write instructions
+		
+	Mac:
+		TODO: write instructions
+		
+	Windows:
+		Move steam_api64.dll (Located at /build) to /release
+
+Sol2:
+	Linux:
+		None
+		
+	Mac:
+		None
+		
+	Windows:
+		None
+
+LuaJIT:
+	Linux:
+		TODO: write instructions
+		
+	Mac:
+		TODO: write instructions
+		
+	Windows:
+		Move buildvm.exe and minilua.exe (located at /build/bin/Release/) to /release
+		TODO: Verify that buildvm.exe and minilua.exe both belong to LuaJIT and not sol2
+
+SFML:
+	Linux:
+		None
+		
+	Mac:
+		None
+		
+	Windows:
+		None
+
+box2d:
+	Linux:
+		None
+		
+	Mac:
+		None
+		
+	Windows:
+		None
