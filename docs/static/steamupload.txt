@@ -1,0 +1,58 @@
+# denotes comments
+# This document will cover how to upload a game build to steam (and set it live).
+# It is assumed that all tests have been run and that the game is in a release-ready state.
+# 
+# Only lead developers have the necessary steam permissions to upload a game build.
+#
+# "Platform(s)" in this document refer to the operating systems that we currently support (Windows, Mac, and Linux)
+
+From Steamworks:
+ - Navigate to the Duct Tape and Dreams (DTAD) App Admin page on the steamworks website: https://partner.steamgames.com/apps/landing/3433930
+ - Click (Edit Steamworks Settings)->(SteamPipe)->(Depots)
+ - Create 3 new depots (one for each platform) with the names DTAD {version} {Platform}. Make sure to set the architecture to '64-bit OS Only' and the Operating System to the platform that depot is for. Keep track of the Depot IDs (e.g. 3433931). Example:
+	Depot ID || Description		 || Operating System || Architecture
+	3433331		DTAD 0.1.0 Windows  Windows				64-bit OS Only
+	3433932		DTAD 0.1.0 Linux    Linux				64-bit OS Only
+	3433933		DTAD 0.1.0 Mac 		Mac					64-bit OS Only
+
+ 
+From a Windows machine (SteamPipeGUI only supports Windows as of June 11, 2025):
+ - Create a set of directories with the following structure:
+	
+	DTAD_release_{version}/
+		Windows/
+		Mac/
+		Linux/
+	
+ - Using the process outlined in BuildingReleases.txt, create release versions for the game platforms.
+ - For each release, copy the contents of the release/ folder into its respective platform folder from above
+ - If needed, install SteamPipeGUI:
+	- Download the latest version of the Steamworks SDK (currently 1.62) from: https://partner.steamgames.com/downloads/list
+	- Unzip the SDK
+	- Navigate to sdk/tools/SteamPipeGUI.zip
+	- Unzip SteamPipeGUI
+
+ - Launch SteamPipeGUI.exe
+ - Under Depot Configuration, add 3 depots (one for each platform).
+ - Copy the 3 depot IDs from Steamworks to the depot IDs in SteamPipeGUI.
+ - For each depot, under 'Build Path', add the full directory path to the platform folder for that depot. Example:
+	Depot ID || Build Path
+	3433331		path/to/DTAD_release_0.1.0/Windows
+    3433932		path/to/DTAD_release_0.1.0/Linux
+    3433933		path/to/DTAD_release_0.1.0/Mac
+	
+ - If the Steamworks SDK ContentBuilder path is not yet filled, fill it with path/to/your_installed_SDK/sdk/tools/ContentBuilder
+ - Fill in steam login info
+ - Click 'Generate VDFs'
+ - Click 'Upload' (you may need to approve the upload with 2FA)
+ 
+Useful Info:
+	To set a build as live:
+	 - Navigate to the Builds page in steamworks (From DTAD app admin page: (Edit Steamworks Settings)->(SteamPipe)->(Builds))
+	 - On the build you wish to set as live, use the 'Set build as live option'
+	 
+	To combine multiple builds into a new build (there should be an easier way to do this):
+	 - Create a new app branch
+	 - Add the relevant builds to that branch
+	 - It should give you an option to combine builds into a new single build
+     - Delete temporary branch
