@@ -8,7 +8,7 @@ Duct Tape and Dreams (DTAD) is a 2d survival game where space ships fall apart a
 
 ## Group Members:
 
-Davidt Acosta - [davidacleon](https://github.com/davidacleon)
+David Acosta - [davidacleon](https://github.com/davidacleon)
 
 Zach Baker    - [FloatingToa5t](https://github.com/FloatingToa5t)
 
