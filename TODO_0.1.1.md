@@ -2,6 +2,9 @@
 ## CMake
  - Test find_package for major packages (luajit, SFML, box2d, sol2, etc...) and make sure they aren't being re-downloaded if a working copy already exists in /build/
 
+## box2d
+ - update to version 3.1.1
+
 ## Other
  - Gather dependency licenses into license.txt files and place them in docs/static/
  - Finish filling out docs/static/BuildingReleases.txt
