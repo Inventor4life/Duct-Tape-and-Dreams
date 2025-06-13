@@ -129,10 +129,10 @@ if(WIN32)
 elseif(APPLE)
 	#TODO: Test this.
 	file(INSTALL ${STEAM_LIBRARY_DIR}/osx/libsteam_api.dylib DESTINATION ${CMAKE_OUTPUT_BINARY_DIR})
-	target_link_libraries(main PUBLIC ${CMAKE_BINARY_DIR}/libsteam_api.dylib) 
+	target_link_libraries(main PUBLIC ${CMAKE_OUTPUT_BINARY_DIR}/libsteam_api.dylib) 
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	file(INSTALL ${STEAM_LIBRARY_DIR}/linux64/libsteam_api.so DESTINATION ${CMAKE_OUTPUT_BINARY_DIR})
-	target_link_libraries(main PUBLIC ${CMAKE_BINARY_DIR}/libsteam_api.so)
+	target_link_libraries(main PUBLIC ${CMAKE_OUTPUT_BINARY_DIR}/libsteam_api.so)
 endif()
 
 #Create DTAD_STEAM_APPID.txt, recommended for development only.
