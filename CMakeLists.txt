@@ -124,15 +124,15 @@ endif()
 set(STEAM_LIBRARY_DIR "${CMAKE_BINARY_DIR}/steamworks_sdk_${DTAD_SteamWorks_VERSION}/sdk/redistributable_bin")
 
 if(WIN32)
-	file(INSTALL ${STEAM_LIBRARY_DIR}/win64/steam_api64.dll DESTINATION ${CMAKE_OUTPUT_BINARY_DIR})
+	file(INSTALL ${STEAM_LIBRARY_DIR}/win64/steam_api64.dll DESTINATION ${CMAKE_BINARY_DIR})
 	target_link_libraries(main PUBLIC ${STEAM_LIBRARY_DIR}/win64/steam_api64.lib)
 elseif(APPLE)
 	#TODO: Test this.
-	file(INSTALL ${STEAM_LIBRARY_DIR}/osx/libsteam_api.dylib DESTINATION ${CMAKE_OUTPUT_BINARY_DIR})
-	target_link_libraries(main PUBLIC ${CMAKE_OUTPUT_BINARY_DIR}/libsteam_api.dylib) 
+	file(INSTALL ${STEAM_LIBRARY_DIR}/osx/libsteam_api.dylib DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	target_link_libraries(main PUBLIC ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libsteam_api.dylib) 
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-	file(INSTALL ${STEAM_LIBRARY_DIR}/linux64/libsteam_api.so DESTINATION ${CMAKE_OUTPUT_BINARY_DIR})
-	target_link_libraries(main PUBLIC ${CMAKE_OUTPUT_BINARY_DIR}/libsteam_api.so)
+	file(INSTALL ${STEAM_LIBRARY_DIR}/linux64/libsteam_api.so DESTINATION ${CMAKE_BINARY_DIR})
+	target_link_libraries(main PUBLIC ${CMAKE_BINARY_DIR}/libsteam_api.so)
 endif()
 
 #Create DTAD_STEAM_APPID.txt, recommended for development only.
