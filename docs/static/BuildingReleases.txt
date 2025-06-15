@@ -3,6 +3,7 @@
 #
 # Format (* denotes optional):
 # {Module Name} {*version}:
+#
 #	Linux:
 #		{Release requirements for Linux}
 #
@@ -11,6 +12,9 @@
 #
 #	Windows:
 #		{Release requirements for Windows}
+#
+#	*All:
+#		{Platform-agnostic release requirements}
 #
 #	*Notes:
 #		*{additional notes}
@@ -55,7 +59,10 @@ Sol2:
 		
 	Windows:
 		None
-
+		
+	All:
+    	Copy /docs/licenses/sol2/license.txt to /release/licenses/sol2/
+		
 LuaJIT:
 	Linux:
 		Move buildvm and minilua (located at /build/bin/) to /release
@@ -68,7 +75,10 @@ LuaJIT:
 	Windows:
 		Move buildvm.exe and minilua.exe (located at /build/bin/Release/) to /release
 		TODO: Verify that buildvm.exe and minilua.exe both belong to LuaJIT and not sol2
-
+	
+	All:
+    	Copy /docs/licenses/LuaJIT/license.txt to /release/licenses/LuaJIT/
+		
 SFML:
 	Linux:
 		None
@@ -78,6 +88,10 @@ SFML:
 		
 	Windows:
 		None
+		
+	All:
+    	Copy /docs/licenses/SFML/license.txt to /release/licenses/SFML/
+	
 
 box2d:
 	Linux:
@@ -88,3 +102,7 @@ box2d:
 		
 	Windows:
 		None
+		
+	All:
+    	Copy /docs/licenses/box2d/license.txt to /release/licenses/box2d/
+	
