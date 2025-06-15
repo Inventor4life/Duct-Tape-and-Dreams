@@ -134,7 +134,6 @@ if(WIN32)
     )
 
 elseif(APPLE)
-	#TODO: Test this.
 	file(INSTALL ${STEAM_LIBRARY_DIR}/osx/libsteam_api.dylib DESTINATION ${CMAKE_BINARY_DIR}/bin)
 	target_link_libraries(main PUBLIC ${CMAKE_BINARY_DIR}/bin/libsteam_api.dylib) 
 	
