@@ -141,7 +141,7 @@ elseif(APPLE)
 	# Install MacOS .dylib into executable destination
     add_custom_command(TARGET main POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/libsteam_api.dylib $<TARGET_FILE_DIR:main>
-		COMMENT "Install windows .dll into executable destination"
+		COMMENT "Install MacOS .dylib into executable destination"
     )
 	
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -151,7 +151,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	# Install linux .so into executable destination
     add_custom_command(TARGET main POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/libsteam_api.so $<TARGET_FILE_DIR:main>
-		COMMENT "Install windows .dll into executable destination"
+		COMMENT "Install linux .so into executable destination"
     )
 	
 else()
