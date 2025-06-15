@@ -124,15 +124,39 @@ endif()
 set(STEAM_LIBRARY_DIR "${CMAKE_BINARY_DIR}/steamworks_sdk_${DTAD_SteamWorks_VERSION}/sdk/redistributable_bin")
 
 if(WIN32)
-	file(INSTALL ${STEAM_LIBRARY_DIR}/win64/steam_api64.dll DESTINATION ${CMAKE_BINARY_DIR})
+	file(INSTALL ${STEAM_LIBRARY_DIR}/win64/steam_api64.dll DESTINATION ${CMAKE_BINARY_DIR}/bin)
 	target_link_libraries(main PUBLIC ${STEAM_LIBRARY_DIR}/win64/steam_api64.lib)
+	
+	# Install windows .dll into executable destination
+    add_custom_command(TARGET main POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/steam_api64.dll $<TARGET_FILE_DIR:main>
+		COMMENT "Install windows .dll into executable destination"
+    )
+
 elseif(APPLE)
 	#TODO: Test this.
-	file(INSTALL ${STEAM_LIBRARY_DIR}/osx/libsteam_api.dylib DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-	target_link_libraries(main PUBLIC ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libsteam_api.dylib) 
+	file(INSTALL ${STEAM_LIBRARY_DIR}/osx/libsteam_api.dylib DESTINATION ${CMAKE_BINARY_DIR}/bin)
+	target_link_libraries(main PUBLIC ${CMAKE_BINARY_DIR}/bin/libsteam_api.dylib) 
+	
+	# Install MacOS .dylib into executable destination
+    add_custom_command(TARGET main POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/libsteam_api.dylib $<TARGET_FILE_DIR:main>
+		COMMENT "Install windows .dll into executable destination"
+    )
+	
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-	file(INSTALL ${STEAM_LIBRARY_DIR}/linux64/libsteam_api.so DESTINATION ${CMAKE_BINARY_DIR})
-	target_link_libraries(main PUBLIC ${CMAKE_BINARY_DIR}/libsteam_api.so)
+	file(INSTALL ${STEAM_LIBRARY_DIR}/linux64/libsteam_api.so DESTINATION ${CMAKE_BINARY_DIR}/bin)
+	target_link_libraries(main PUBLIC ${CMAKE_BINARY_DIR}/bin/libsteam_api.so)
+	
+	# Install linux .so into executable destination
+    add_custom_command(TARGET main POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/libsteam_api.so $<TARGET_FILE_DIR:main>
+		COMMENT "Install windows .dll into executable destination"
+    )
+	
+else()
+	message(FATAL_ERROR "Unknown platform ${CMAKE_SYSTEM_NAME}")
+	
 endif()
 
 #Create DTAD_STEAM_APPID.txt, recommended for development only.
