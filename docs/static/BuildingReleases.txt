@@ -28,21 +28,23 @@ Core:
 		Move main (Located at /build/bin for Make) to /release
 		
 	Mac:
-		TODO: write instructions
+		Move main (Located at /build/bin for Make) to /release
 		
 	Windows:
 		Move main.exe (Located at /build/bin/Release for visual studio) to /release
 		
 
 Steamworks:
+	#Steamwork install should put the dynamic library wherever the main executable is.
+	# If the library isn't in the locations listed below, check wherever main was compiled.
 	Linux:
-		Move libsteam_api.so (Located at /build) to /release
+		Move libsteam_api.so (Located at /build/bin for make) to /release
 		
 	Mac:
-		TODO: write instructions
+		Move libsteam_api.dylib (Located at /build/bin for make) to /release
 		
 	Windows:
-		Move steam_api64.dll (Located at /build) to /release
+		Move steam_api64.dll (Located at /build/bin/Release for visual studio) to /release
 
 Sol2:
 	Linux:
@@ -60,7 +62,8 @@ LuaJIT:
 		TODO: Verify that buildvm.exe and minilua.exe both belong to LuaJIT and not sol2
 		
 	Mac:
-		TODO: write instructions
+		Move buildvm and minilua (located at /build/bin/) to /release
+		TODO: Verify that buildvm.exe and minilua.exe both belong to LuaJIT and not sol2
 		
 	Windows:
 		Move buildvm.exe and minilua.exe (located at /build/bin/Release/) to /release
