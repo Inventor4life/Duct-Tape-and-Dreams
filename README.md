@@ -1,10 +1,18 @@
 # Duct-Tape-and-Dreams
 
-[Documentation](https://docs.google.com/document/d/1MfGL81AGXvoAXpJSSHrIRQcmGpD3-zGf5BHsP8V3hJ4/edit?usp=sharing)
+This is the public repository for an upcoming (game/portfolio project) called Duct Tape and Dreams.
 
-This is the [currently private] repository for a game-based resume project.
+Duct Tape and Dreams (DTAD) is a 2d survival game where space ships fall apart and everything is a hammer...
 
-Duct Tape and Dreams (DTAD) is a 2d survival game where space ships fall apart and anything is a hammer...
+## Installation:
+	1.) Clone the repository to a directory of your choice.
+	2.) Navigate to the /build/ folder in the project root.
+	3.) Run `cmake -B. -S..` to build the game.
+	4.) If the game fails to build, follow the instructions in the console.
+		If there are no instructions in console (just an error message),
+		please reach out to one of the devs and include the console output.
+	5.) Compile the game in an editor of your choice.
+	6.) Run the game and enjoy!
 
 ## Group Members:
 

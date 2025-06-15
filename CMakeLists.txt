@@ -36,7 +36,7 @@ set(DTAD_STEAM_APPID 3433930) #Duct Tape and Dreams App ID
 
 #Disallow in-source builds
 if(NOT ${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR}/build)
-	message(FATAL_ERROR "In-source builds not allowed. Please create a build directory and run 'cmake ..' from there.")
+	message(FATAL_ERROR "Please build into the /build/ directory at project root.")
 endif()
 
 #Keep downloaded packages separate from main script
@@ -59,7 +59,6 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT m
 #############
 #include SFML
 #Note: On linux systems, SFML doesn't auto-install dependencies. Consider using the included
-# LinuxDependencyInstaller.sh ## TODO: Test this.
 message(STATUS "Checking for SFML ${DTAD_SFML_VERSION} on local machine")
 find_package(SFML ${DTAD_SFML_VERSION} COMPONENTS system window graphics audio)
 
@@ -118,21 +117,45 @@ file(
 target_include_directories(main PUBLIC ${CMAKE_BINARY_DIR}/steamworks_sdk_${DTAD_SteamWorks_VERSION}/sdk/public/)
 
 #Find and link required libraries by platform
-if(CMAKE_SIZEOF_VOID_P EQUAL 4) #True if on 32-bit system
+if(NOT (CMAKE_SIZEOF_VOID_P EQUAL 8)) #True if not on 64-bit system
     message(FATAL_ERROR "This project is designed for 64-bit systems only.")
 endif()
 
 set(STEAM_LIBRARY_DIR "${CMAKE_BINARY_DIR}/steamworks_sdk_${DTAD_SteamWorks_VERSION}/sdk/redistributable_bin")
 
 if(WIN32)
+	file(INSTALL ${STEAM_LIBRARY_DIR}/win64/steam_api64.dll DESTINATION ${CMAKE_BINARY_DIR}/bin)
 	target_link_libraries(main PUBLIC ${STEAM_LIBRARY_DIR}/win64/steam_api64.lib)
-	file(INSTALL ${STEAM_LIBRARY_DIR}/win64/steam_api64.dll DESTINATION ${CMAKE_BINARY_DIR})
+	
+	# Install windows .dll into executable destination
+    add_custom_command(TARGET main POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/steam_api64.dll $<TARGET_FILE_DIR:main>
+		COMMENT "Install windows .dll into executable destination"
+    )
+
 elseif(APPLE)
-	#TODO: Test this.
-	target_link_libraries(main PUBLIC ${STEAM_LIBRARY_DIR}/osx/libsteam_api.dylib) #Untested
+	file(INSTALL ${STEAM_LIBRARY_DIR}/osx/libsteam_api.dylib DESTINATION ${CMAKE_BINARY_DIR}/bin)
+	target_link_libraries(main PUBLIC ${CMAKE_BINARY_DIR}/bin/libsteam_api.dylib) 
+	
+	# Install MacOS .dylib into executable destination
+    add_custom_command(TARGET main POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/libsteam_api.dylib $<TARGET_FILE_DIR:main>
+		COMMENT "Install MacOS .dylib into executable destination"
+    )
+	
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-	#TODO: Test this.
-	target_link_libraries(main PUBLIC ${STEAM_LIBRARY_DIR}/linux64/libsteam_api.so) #Untested
+	file(INSTALL ${STEAM_LIBRARY_DIR}/linux64/libsteam_api.so DESTINATION ${CMAKE_BINARY_DIR}/bin)
+	target_link_libraries(main PUBLIC ${CMAKE_BINARY_DIR}/bin/libsteam_api.so)
+	
+	# Install linux .so into executable destination
+    add_custom_command(TARGET main POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/libsteam_api.so $<TARGET_FILE_DIR:main>
+		COMMENT "Install linux .so into executable destination"
+    )
+	
+else()
+	message(FATAL_ERROR "Unknown platform ${CMAKE_SYSTEM_NAME}")
+	
 endif()
 
 #Create DTAD_STEAM_APPID.txt, recommended for development only.
