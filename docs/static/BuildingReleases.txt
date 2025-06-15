@@ -37,6 +37,8 @@ Core:
 	Windows:
 		Move main.exe (Located at /build/bin/Release for visual studio) to /release
 		
+	#TODO add platform-agnostic requirements such as licenses and assets.
+		
 
 Steamworks:
 	#Steamwork install should put the dynamic library wherever the main executable is.

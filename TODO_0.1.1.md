@@ -6,6 +6,6 @@
  - update to version 3.1.1
 
 ## Other
- - Gather dependency licenses into license.txt files and place them in docs/static/
- - Finish filling out docs/static/BuildingReleases.txt
+ - Finish filling out docs/static/BuildingReleases.txt:
+	-update Core requirements to include platform-agnostic files (E.g. licenses, assets, lua scripts...)
  - Design development workflow and document it in docs/static/workflow.txt
