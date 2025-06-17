@@ -15,7 +15,7 @@ project(DuctTapeandDreams LANGUAGES CXX)
 ####              #### Make sure to update package versions above when changing versions below.
 ## PROJECT SETTINGS ##
 
-set(DTAD_BOX2D_VERSION "3.0.0")
+set(DTAD_BOX2D_VERSION "3.1.1")
 
 set(DTAD_LUAJIT_VERSION "2.1")
 
