@@ -29,6 +29,8 @@
 
 	Add Development tracker
 	Add changelog
+	Describe development workflow in docs/static/Workflow.txt
+	Add localization to game
 0.1.1
 
 	Publish docs to Github Pages
