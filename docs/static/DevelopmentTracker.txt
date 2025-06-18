@@ -1,38 +1,47 @@
 # '#' Denotes commments
 # This file contains a short plan for future DTAD releases, subject to change.
 # Format:
-#	{SemVer version number} *{(->) update name}
-#		*Planned feature
-#			*Description
+#		[<Planned feature for release with below version, 0.1.0 in this case>]
+#			[<Description>]
 #		...
 #		...
-#		*Planned feature
-#	
-# (* denotes optional)		
+#		[<Planned feature>]
+#	{SemVer version number, e.g. 0.1.0} [-> <update name>]
+#	(blank line)
+#		[<Planned feature for release with below version, 0.2.0 in this case>]
+#			[<Description>]
+#		...
+#		...
+#		[<Planned feature>]
+#	{SemVer version number, e.g. 0.2.0} [-> <update name>]
+#	(blank line)
+# [] denotes optional
+# <> denotes arguments
 # End Format
 #
 # --CURRENT tag shows current version and when Development tracker was last updated.
 # <:: BackBurner ::> label shows features on hold (Not assigned a release version, may be cancelled.)
 
-0.1.0 -> Batteries not included --CURRENT
+0.0.0 -> The Beginning
+
 	Automate source building with CMake
-	
-0.1.1
+0.1.0 -> Batteries not included --CURRENT
+
 	Add Development tracker
 	Add changelog
-	
-0.1.2
+0.1.1
+
 	Publish docs to Github Pages
-	
-0.1.3
+0.1.2
+
 	Establish testing procedure
 	Choose code style guide
 	Design game interfaces
+0.1.3
 
-0.1.x 
 	Finalize testing procedures and game interface design
+0.1.x
 
-0.2.0 -> First Steps
 	Prototype interfaces/modules:
 		Launch:
 			Controls how the game handles various launch options. May return launch options as settings (TBD in version 0.1.x)
@@ -48,12 +57,12 @@
 			Monitors and logs program flow to aid in debugging.
 			
 		Scripts:
-			Implement scripting interface for the 0.2.x features
-			
-0.2.x
-	Bugfix and improve on Launch and Settings modules.
+			Implement scripting interface for the 0.2.x features			
+0.2.0 -> First Steps
 
-0.3.0 -> Chase it, (it's running!)
+	Bugfix and improve on Launch and Settings modules.
+0.2.x
+
 	Prototype interfaces/modules:
 		Events:
 			Creates/manages an event system -- https://www.geeksforgeeks.org/event-driven-architecture-system-design
@@ -69,12 +78,12 @@
 			May be removed after design in version 0.1.x
 			
 		Scripts:
-			Implement scripting interface for the 0.3.x features
-			
-0.3.x
+			Implement scripting interface for the 0.3.x features		
+0.3.0 -> Chase it, (it's running!)
+
 	Bugfix and improve on previous modules and interfaces
-	
-0.4.0 -> Some assembly required
+0.3.x
+
 	Prototype interfaces/modules:
 		Graphics:
 			Implements higher-level graphics (Such as tiles, sprites, and animations).
@@ -97,12 +106,11 @@
 			-Builder: Create new mods from source.
 			-Manager: Delete local mods.
 			Uses 0.3.x (Asset manager, Events), 0.2.x (settings)
+0.4.0 -> Some assembly required
 
-
-0.4.x
 	Bugfix and improve on previous modules and interfaces
-	
-0.5.0 -> {TBD}
+0.4.x
+
 	Prototype interfaces/modules:
 		Scripts:
 			Update scripting interface to include 0.5.x features
@@ -120,16 +128,16 @@
 		
 		Levels:
 			// TODO: Figure out levels vs. Mods. Are all levels mods?
-		
-0.6.0 -> Negligent Newton!
+0.5.0 -> {TBD}
+
 	Prototype interfaces/modules:
 		Modding:
 			-Browser: Used to gather info on local mods (Not display them!)
 		
 		Core:
-			initialize services, browse levels/mods
-			
-0.7.0 -> {TBD}
+			initialize services, browse levels/mods		
+0.6.0 -> Negligent Newton!
+
 	Prototype interfaces/modules:
 		World:
 			Collection of mods, scripts, images, audio, and settings.
@@ -138,8 +146,8 @@
 			-Builder: Create a new world from source
 			-Browser: Browse local worlds
 			-Manager: Delete local worlds
-			
-0.8.0 -> The internet (is your) oyster!
+0.7.0 -> {TBD}
+
 	Prototype interfaces/modules:
 		Modding:
 			-Browser: Used to discover remote mods.
@@ -149,6 +157,7 @@
 			Handles how the game interacts with remote servers.
 			-Matchmaking: Joining/creating/syncing remote game sessions
 			-Friends: Add friends list functionality
-			-Messaging: Sending/receiving chat messages
+			-Messaging: Sending/receiving chat messages		
+0.8.0 -> The internet (is your) oyster!
 
 <:: BackBurner ::>
