@@ -1,8 +1,9 @@
 # TODO
 ## CMake
 For Windows: (similar to steamworks Download)
- - Download https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.25-v1.17/gettext0.25-iconv1.17-static-64.zip
+ - Download https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.25-v1.17/gettext0.25-iconv1.17-shared-64.zip
  - Verify hash
+ - Install into libintl-8.dll and libiconv-2.dll into executable directory using a post-build script
  - Add manual download instructions if download fails
 
 For all:
