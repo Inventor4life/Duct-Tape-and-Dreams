@@ -2,6 +2,7 @@
 ## CMake
  - Update SFML to link dynamically. Our current setup links statically, and some of SFML's external libraries are incompatible with the SteamSDK.
  - Test find_package for major packages (luajit, SFML, box2d, sol2, etc...) and make sure they aren't being re-downloaded if a working copy already exists in /build/
+ - Update steamworks install script to have more detailed messages (checking install, install found/install not found/downloading, etc.)
 
 ## locale
  - test if gettext support is installed on mac/linux by default.
