@@ -49,6 +49,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #Create Target
 add_executable(main src/main.cpp)
+target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/include) #Add include directory for local components
 target_compile_features(main PRIVATE cxx_std_17) #Use C++17. C++ standards after 17 have not been tested.
 
 #Sets main target as main project for Visual Studio

@@ -1,8 +1,4 @@
 # TODO
-## CMake
-For all:
- - Add included directory (include/) to target Main
-
 ## Versioning.txt
  - Add update instructions (similar to steamworks)
 
