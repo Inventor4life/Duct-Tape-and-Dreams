@@ -162,7 +162,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     )
 	
 else()
-	message(FATAL_ERROR "Unknown platform ${CMAKE_SYSTEM_NAME}")
+	message(WARNING "Unknown platform ${CMAKE_SYSTEM_NAME}")
 	
 endif()
 
@@ -330,7 +330,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(WARNING "No gettext install script for LINUX")
 
 else()
-	message(FATAL_ERROR "Unknown platform ${CMAKE_SYSTEM_NAME}, cannot install gettext")
+	message(WARNING "Unknown platform ${CMAKE_SYSTEM_NAME}, cannot install gettext")
 	
 endif()
 ########## END GETTEXT INSTALL
