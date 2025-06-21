@@ -24,6 +24,7 @@ For All:
  - Make sure translation files store/present text with UTF-8 encoding.
  ? Add instructions for changing the encoding? (to be discussed, depending on difficulty of switching to UTF-8)
  - Find a way to access this directory from the executable for both development and release versions
+ - add script to auto-compile translation .po files
  
 ## LoadGetText.h (gettext interface)
  - Create include directory in project root
