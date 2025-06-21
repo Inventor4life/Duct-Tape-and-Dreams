@@ -10,6 +10,7 @@ project(DuctTapeandDreams LANGUAGES CXX)
 #  - LuaJIT          2.1    :: Run Lua for mods. LuaJIT preffered over Lua for performance
 #  - Sol             3.5.0  :: Header Library for Lua, makes integrating Lua API easier
 #  - box2d           3.0.0  :: Physics Engine - Required because... Physics?
+#  - gettext         0.25   :: localization support
 ##############################################################
 
 ####              #### Make sure to update package versions above when changing versions below.
@@ -26,6 +27,10 @@ set(DTAD_SFML_VERSION "3.0.0") #Make sure to update LinuxDependencyInstaller.sh 
 set(DTAD_SteamWorks_VERSION 162) #To update: set required version number, and updated expected MD5 hash. Last: 162
 set(DTAD_SteamWorks_HASH_EXPECTED "048fc455d1725da6e25e2ffe4597fd23") #Expected Steamworks .zip MD5 Hash, used to verify that the correct sdk is downloaded.
 set(DTAD_STEAM_APPID 3433930) #Duct Tape and Dreams App ID
+
+set(DTAD_GETTEXT_WINDOWS_DOWNLOAD_LINK "https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.25-v1.17/gettext0.25-iconv1.17-shared-64.zip")
+set(DTAD_GETTEXT_WINDOWS_FILENAME "gettext0.25-iconv1.17-shared-64.zip") #To update: get file name downloaded from above URL
+set(DTAD_GETTEXT_WINDOWS_HASH_EXPECTED "1e33da2d81f0a447332499d106b09df9") #Expected gettext .zip MD5 Hash, used to verify that the correct library was downloaded.
 
 # END PROJECT SETTINGS
 ######################
@@ -86,6 +91,8 @@ endif()
 
 #############
 #include Steamworks SDK
+# Note: This install code was copied and modified for gettext library.
+#		 In the event of a bug fix, please fix gettext install as well.
 
 #Validates steamworks ZIP installation, reinstalls if necessary
 if(EXISTS "steamworks_sdk_${DTAD_SteamWorks_VERSION}.zip")
@@ -244,3 +251,85 @@ else()
 endif()
 
 ########## END BOX2D INSTALL
+
+##########
+# Install gettext
+# Note: This install code was copied and modified for gettext library.
+#		 In the event of a bug fix, please fix gettext install as well.
+
+# TODO: Find if gettext dynamic library comes pre-packaged with MacOS and Linux
+
+#Verify that we're running on a 64 bit system
+if(NOT (CMAKE_SIZEOF_VOID_P EQUAL 8)) #True if not on 64-bit system
+    message(FATAL_ERROR "This project is designed for 64-bit systems only.")
+endif()
+
+#Set gettext .zip extract location, regardless of platform (This may become an issue if cross-compiling)
+set(GETTEXT_LIBRARY_DIR "${CMAKE_BINARY_DIR}/gettext")
+
+#Find and link required libraries by platform
+if(WIN32)
+	message(STATUS "Checking windows gettext installation...")
+
+	#check if the gettext windows library is already downloaded
+	if(EXISTS "${CMAKE_BINARY_DIR}/${DTAD_GETTEXT_WINDOWS_FILENAME}")
+		file(MD5 "${DTAD_GETTEXT_WINDOWS_FILENAME}" GT_HASH)
+	endif()
+	
+	#if gettext is invalid or not installed, download it and re-verify
+	if(NOT GT_HASH STREQUAL DTAD_GETTEXT_WINDOWS_HASH_EXPECTED)
+		#Download
+		message(STATUS "Invalid or missing gettext library. Downloading new library...")
+		file(
+			DOWNLOAD "${DTAD_GETTEXT_WINDOWS_DOWNLOAD_LINK}" "${DTAD_GETTEXT_WINDOWS_FILENAME}"
+		)
+			
+		#Verify new download, throw an error if download fails.
+		file(MD5 "${DTAD_GETTEXT_WINDOWS_FILENAME}" GT_HASH)
+		if(NOT GT_HASH STREQUAL DTAD_GETTEXT_WINDOWS_HASH_EXPECTED)
+			message(
+				FATAL_ERROR 
+				"FAILED gettext windows download. Download ${DTAD_GETTEXT_WINDOWS_FILENAME} from https://github.com/mlocati/gettext-iconv-windows/releases/ into the /build/ folder"
+			)
+		endif()
+	else()
+		message(STATUS "gettext library found")
+	endif()
+	
+	#Extract gettext ZIP to similarly named folder
+	file(MAKE_DIRECTORY "${GETTEXT_LIBRARY_DIR}")
+	file(
+		ARCHIVE_EXTRACT
+		INPUT "${DTAD_GETTEXT_WINDOWS_FILENAME}"
+		DESTINATION "${GETTEXT_LIBRARY_DIR}"
+	)
+	
+	#Move required DLLs (libintl-8 and iconv-2) to binary directory
+	file(INSTALL ${GETTEXT_LIBRARY_DIR}/bin/libintl-8.dll DESTINATION ${CMAKE_BINARY_DIR}/bin)
+	file(INSTALL ${GETTEXT_LIBRARY_DIR}/bin/libiconv-2.dll DESTINATION ${CMAKE_BINARY_DIR}/bin)
+	
+	# Install windows gettext dlls into executable destination
+    add_custom_command(TARGET main POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/libintl-8.dll $<TARGET_FILE_DIR:main>
+		COMMENT "Install windows gettext libintl-8.dll into executable destination"
+    )
+	add_custom_command(TARGET main POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy  ${CMAKE_BINARY_DIR}/bin/libiconv-2.dll $<TARGET_FILE_DIR:main>
+		COMMENT "Install windows gettext libiconv-2.dll into executable destination"
+    )
+
+elseif(APPLE)
+	message(STATUS "Installing gettext library for MacOS")
+	#TODO, Create MACOS install instructions
+	message(WARNING "No gettext install script for MACOS")
+	
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+	message(STATUS "Installing gettext library for Linux")
+	#TODO, Create Linux install instructions
+	message(WARNING "No gettext install script for LINUX")
+
+else()
+	message(FATAL_ERROR "Unknown platform ${CMAKE_SYSTEM_NAME}, cannot install gettext")
+	
+endif()
+########## END GETTEXT INSTALL
