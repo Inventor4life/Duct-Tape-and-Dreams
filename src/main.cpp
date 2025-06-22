@@ -1,22 +1,48 @@
-#include <iostream>
+#include <LoadGetText.h>
 
 #include <sol/sol.hpp>
 #include <steam/steam_api.h>
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
+
+// Macros to simplify calling the gettext function
+#define _(String) gettext(String)
+#define N_(String) String
+
 int main()
 {
+	// Change to Windows Ansi console codepage, to properly display modified chars (Like '¡Hola!')
+	// Ideally, this should be Unicode or UTF-8
+	system("chcp 1252");
+
+	LoadGettext::init();
+	bindtextdomain("DTAD", "C:/Users/ethan/source/repos/PersonalProjects/DuctTapeAndDreams/locales");
+	textdomain("DTAD");
+
+	LoadGettext::ChangeLocale("en_US");
+	std::cout << _("Hello, World!");
+	std::cout << std::endl;
+
+	LoadGettext::ChangeLocale("es_VE");
+	std::cout << _("Hello, World!");
+	std::cout << std::endl;
+
+	LoadGettext::ChangeLocale("de");
+	std::cout << _("Hello, World!");
+	std::cout << std::endl;
+
+
 	// Verify SFML installation
 	// Create a window
-	auto window = sf::RenderWindow(sf::VideoMode({ 1920u, 1080u }), "CMake SFML Project");
+	auto window = sf::RenderWindow(sf::VideoMode({ 500u, 500u }), "CMake SFML Project");
 	window.setFramerateLimit(144);
-
 	
     // Create a circle
     sf::CircleShape circle(50.f); // Radius of 50
     circle.setFillColor(sf::Color::Red);
-    circle.setPosition(sf::Vector2(200.f, 200.f)); // Center of the circle
+    circle.setPosition(sf::Vector2(200.f, 200.f)); // Top left of the circle
 	
 	while (window.isOpen())
 	{

@@ -3,8 +3,14 @@ cmake_minimum_required(VERSION 3.28)
 project(DuctTapeandDreams LANGUAGES CXX)
 
 ##############################################################
-# Include Required Packages:
-#  := (NAME) [VERSION]  [:: Description (why do we use this package?)]
+# Include Internal Required Packages:
+#  := (Name)  [version]  [:: Description (why do we use this package?)]
+#  - LoadGetText  :: Loads the gettext dynamic library
+##############################################################
+
+##############################################################
+# Include External Required Packages:
+#  := (NAME)  [VERSION]  [:: Description (why do we use this package?)]
 #  - SFML            3.0.0  :: Game Graphics
 #  - Steamworks_SDK  1.62   :: Steam API, required to use Steam features
 #  - LuaJIT          2.1    :: Run Lua for mods. LuaJIT preffered over Lua for performance
@@ -49,7 +55,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #Create Target
 add_executable(main src/main.cpp)
-target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/include) #Add include directory for local components
 target_compile_features(main PRIVATE cxx_std_17) #Use C++17. C++ standards after 17 have not been tested.
 
 #Sets main target as main project for Visual Studio
@@ -57,9 +62,25 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT m
 #
 ####### END PROJECT RULES #######
 
+##############################################################
+# END Include Internal Required Packages (SEE TOP OF THIS FILE)
+##############################################################
+
+#############
+#include LoadGetText
+
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/LoadGetText)
+target_link_libraries(main PRIVATE LoadGetText)
+
+############# END LoadGetText INSTALL
+
 
 ##############################################################
-# Include Required Packages (SEE TOP OF THIS FILE)
+# END Include Internal Required Packages (SEE TOP OF THIS FILE)
+##############################################################
+
+##############################################################
+# Include External Required Packages (SEE TOP OF THIS FILE)
 ##############################################################
 
 #############
@@ -334,3 +355,7 @@ else()
 	
 endif()
 ########## END GETTEXT INSTALL
+
+##############################################################
+# END Include External Required Packages (SEE TOP OF THIS FILE)
+##############################################################

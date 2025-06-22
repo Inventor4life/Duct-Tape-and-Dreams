@@ -27,9 +27,6 @@ For All:
  - add script to auto-compile translation .po files
  
 ## LoadGetText.h (gettext interface)
- - Create include directory in project root
- - Create include/LoadGetText.h, a cross-platform interface to work with the gettext dynamic library
- - Add default functions in case the gettext dynamic library fails to load.
  - Test the LoadGetText interface on our 3 release OSs (Mac, Linux, Windows)
  - Create documentation for interface (LoadGetText.md)
  
