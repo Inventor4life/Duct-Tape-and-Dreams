@@ -68,7 +68,7 @@ int main()
 	b2Polygon dynamicBox = b2MakeBox(1.0f, 1.0f);
 	b2ShapeDef shapeDef = b2DefaultShapeDef();
 	shapeDef.density = 1.0f;
-	shapeDef.friction = 0.3f;
+	shapeDef.material.friction = 0.3f;
 	b2CreatePolygonShape(bodyId, &shapeDef, &dynamicBox);
 	float timeStep = 1.0f / 60.0f;
 	int subStepCount = 4;
